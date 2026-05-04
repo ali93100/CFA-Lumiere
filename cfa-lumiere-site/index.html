@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CFA Lumière — Former les techniciens des infrastructures critiques</title>
+  <meta name="description" content="CFA Lumière forme les techniciens de l'électricité, CVC/froid et maintenance des infrastructures critiques. Deux titres professionnels en alternance, partout en Île-de-France." />
+  <link rel="stylesheet" href="styles/main.css" />
+  <link rel="icon" href="assets/images/favicon.jpg" type="image/jpeg" />
+
+  <style>
+    /* ── Styles spécifiques à la page d'accueil ─────────── */
+
+    /* Liste à puces avec coche */
+    .checklist {
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-3);
+      margin: var(--sp-6) 0;
+    }
+
+    .checklist li {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--sp-3);
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+      line-height: 1.5;
+    }
+
+    /* Séparateur vertical entre les parcours entreprises/candidats */
+    @media (min-width: 768px) {
+      .parcours-divider {
+        display: none; /* la séparation est gérée par la grille */
+      }
+    }
+
+    /* Inputs sur fond sombre (section CTA final) */
+    .form-control-light {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.18);
+      color: #ffffff;
+    }
+
+    .form-control-light::placeholder {
+      color: rgba(255, 255, 255, 0.38);
+    }
+
+    .form-control-light:focus-visible {
+      border-color: var(--color-accent);
+      box-shadow: 0 0 0 4px rgba(255, 200, 1, 0.20);
+    }
+
+    /* Nécessaire pour que les options select restent lisibles */
+    .form-control-light option {
+      background: var(--color-primary-dk);
+      color: #ffffff;
+    }
+
+    /* Grid stat 2×2 (marché + CTA) */
+    .stat-grid-2x2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--sp-6);
+    }
+
+    /* Card parcours : hauteur uniforme */
+    .parcours-card {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .parcours-card .checklist {
+      flex: 1;
+    }
+
+    /* Ajustement du grid-2 pour la section marché */
+    @media (min-width: 768px) {
+      .market-grid {
+        grid-template-columns: 1.1fr 0.9fr;
+        align-items: center;
+        gap: var(--sp-9);
+      }
+    }
+
+    /* ── Hero Slider ─────────────────────────────────── */
+    .hero-slider {
+      display: block;
+      height: calc(100dvh - var(--navbar-height));
+      min-height: 600px;
+      padding: 0;
+    }
+
+    .slides-track {
+      position: relative;
+      height: 100%;
+      width: 100%;
+    }
+
+    .hero-slide {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      align-items: center;
+      padding: var(--sp-12) 0;
+      opacity: 0;
+      transition: opacity 0.85s var(--ease-out);
+      pointer-events: none;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    .hero-slide.is-active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* Barre de progression */
+    .slider-progress {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 3px;
+      width: 0%;
+      background: var(--color-accent);
+      z-index: var(--z-raised);
+      transition: none;
+    }
+
+    .slider-progress.is-running {
+      transition: width 5.2s linear;
+      width: 100%;
+    }
+
+    /* Dots de navigation */
+    .slider-dots {
+      position: absolute;
+      bottom: var(--sp-8);
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: var(--sp-3);
+      z-index: var(--z-raised);
+    }
+
+    .slider-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(17,76,90,0.22);
+      border: 2px solid rgba(17,76,90,0.38);
+      cursor: pointer;
+      padding: 0;
+      transition:
+        background     var(--t-base) ease,
+        transform      var(--t-base) ease,
+        border-color   var(--t-base) ease;
+    }
+
+    .slider-dot.is-active {
+      background: var(--color-accent);
+      border-color: var(--color-accent-dk);
+      transform: scale(1.35);
+    }
+
+    .slider-dot:hover:not(.is-active) {
+      background: rgba(17,76,90,0.42);
+      border-color: rgba(17,76,90,0.60);
+    }
+
+    /* Flèches de navigation */
+    .slider-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: var(--z-raised);
+      width: 2.75rem;
+      height: 2.75rem;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.72);
+      border: 1.5px solid rgba(17,76,90,0.12);
+      color: var(--color-primary-dk);
+      font-size: 1.375rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-s);
+      transition:
+        background  var(--t-fast) ease,
+        box-shadow  var(--t-fast) ease;
+    }
+
+    .slider-arrow:hover {
+      background: rgba(255,255,255,0.95);
+      box-shadow: var(--shadow-m);
+    }
+
+    .slider-prev { left: var(--sp-6); }
+    .slider-next { right: var(--sp-6); }
+
+    @media (max-width: 767px) {
+      .slider-arrow { display: none; }
+      .slider-dots  { bottom: var(--sp-5); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar chargée dynamiquement -->
+  <div id="navbar"></div>
+
+  <main id="main-content">
+
+    <!-- ══════════════════════════════════════════════════
+         1. HERO
+         Compréhension < 5 secondes — 2 CTAs visibles sans scroll
+         ══════════════════════════════════════════════════ -->
+    <section class="hero hero-light hero-slider" aria-label="Présentation du CFA Lumière">
+
+      <div class="slides-track">
+
+        <!-- ── SLIDE 1 — Accueil général ── -->
+        <div class="hero-slide is-active"
+             aria-label="Slide 1 : CFA Lumière — présentation"
+             style="background:
+               linear-gradient(160deg, rgba(241,246,244,0.82) 40%, rgba(217,232,227,0.88) 100%),
+               url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1920&q=80') center / cover no-repeat;">
+          <div class="container">
+            <div class="hero-content">
+              <span class="eyebrow hero-eyebrow anim-fade-in">
+                Organisme de formation certifié Qualiopi
+              </span>
+              <h1 class="hero-title anim-fade-up anim-delay-1">
+                Former les techniciens des infrastructures critiques
+              </h1>
+              <p class="hero-desc anim-fade-up anim-delay-2">
+                Électricité, CVC/froid, maintenance technique.
+                Deux titres professionnels en alternance pour former
+                les femmes et les hommes qui font fonctionner le monde.
+              </p>
+              <div class="hero-actions anim-fade-up anim-delay-3">
+                <a href="entreprises.html" class="btn btn-primary btn-lg">
+                  Recruter un alternant
+                </a>
+                <a href="candidats.html" class="btn btn-outline btn-lg">
+                  Rejoindre une formation
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── SLIDE 2 — Électricité ── -->
+        <div class="hero-slide"
+             aria-label="Slide 2 : Formation Électricité"
+             style="background:
+               linear-gradient(160deg, rgba(241,246,244,0.78) 35%, rgba(217,232,227,0.85) 100%),
+               url('https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=1920&q=80') center / cover no-repeat;">
+          <div class="container">
+            <div class="hero-content">
+              <span class="eyebrow hero-eyebrow">
+                Titre professionnel — Niveau 3
+              </span>
+              <h2 class="hero-title h1">
+                Devenez électricien(ne) certifié(e) en 12 mois
+              </h2>
+              <p class="hero-desc">
+                Installation, câblage, mise en service des équipements
+                électriques tertiaires et industriels.
+                Habilitations électriques incluses dès la formation.
+              </p>
+              <div class="hero-actions">
+                <a href="formations.html" class="btn btn-primary btn-lg">
+                  Voir la formation
+                </a>
+                <a href="candidats.html" class="btn btn-outline btn-lg">
+                  Je candidate
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── SLIDE 3 — CVC / Froid ── -->
+        <div class="hero-slide"
+             aria-label="Slide 3 : Formation CVC / Froid"
+             style="background:
+               linear-gradient(160deg, rgba(241,246,244,0.78) 35%, rgba(217,232,227,0.85) 100%),
+               url('https://images.unsplash.com/photo-1534398079543-7ae6d016b86a?auto=format&fit=crop&w=1920&q=80') center / cover no-repeat;">
+          <div class="container">
+            <div class="hero-content">
+              <span class="eyebrow hero-eyebrow">
+                Titre professionnel — Niveau 3
+              </span>
+              <h2 class="hero-title h1">
+                CVC / Froid — les techniciens qui font respirer les bâtiments
+              </h2>
+              <p class="hero-desc">
+                Climatisation, ventilation et systèmes frigorifiques.
+                Intervenez sur les installations qui assurent le confort
+                thermique des bâtiments et la chaîne du froid industrielle.
+              </p>
+              <div class="hero-actions">
+                <a href="formations.html" class="btn btn-primary btn-lg">
+                  Voir la formation
+                </a>
+                <a href="candidats.html" class="btn btn-outline btn-lg">
+                  Je candidate
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── SLIDE 4 — Data Centers ── -->
+        <div class="hero-slide"
+             aria-label="Slide 4 : Métiers Data Centers"
+             style="background:
+               linear-gradient(160deg, rgba(17,44,54,0.80) 0%, rgba(13,36,48,0.74) 100%),
+               url('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1920&q=80') center / cover no-repeat;">
+          <div class="container">
+            <div class="hero-content">
+              <span class="eyebrow hero-eyebrow"
+                    style="background: rgba(255,200,1,0.15); color: var(--color-accent);">
+                Métiers d'avenir
+              </span>
+              <h2 class="hero-title h1" style="color: #ffffff;">
+                Les data centers recrutent. Formez-vous dès maintenant.
+              </h2>
+              <p class="hero-desc" style="color: rgba(255,255,255,0.75);">
+                Refroidissement des serveurs, alimentation électrique continue,
+                maintenance critique — des compétences rares et très recherchées
+                dans un secteur en pleine expansion.
+              </p>
+              <div class="hero-actions">
+                <a href="formations.html" class="btn btn-lg"
+                   style="background:#ffffff; color:var(--color-primary-dk); box-shadow:0 6px 20px rgba(0,0,0,0.20); font-weight:700;">
+                  Découvrir nos formations
+                </a>
+                <a href="candidats.html" class="btn btn-ghost btn-lg">
+                  Être rappelé
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /slides-track -->
+
+      <!-- Barre de progression -->
+      <div class="slider-progress" id="slider-progress" aria-hidden="true"></div>
+
+      <!-- Dots de navigation -->
+      <div class="slider-dots" role="group" aria-label="Navigation des slides">
+        <button class="slider-dot is-active" aria-label="Slide 1 : Accueil" data-slide="0"></button>
+        <button class="slider-dot" aria-label="Slide 2 : Électricité"       data-slide="1"></button>
+        <button class="slider-dot" aria-label="Slide 3 : CVC / Froid"       data-slide="2"></button>
+        <button class="slider-dot" aria-label="Slide 4 : Data Centers"      data-slide="3"></button>
+      </div>
+
+      <!-- Flèches -->
+      <button class="slider-arrow slider-prev" aria-label="Slide précédente">&#8249;</button>
+      <button class="slider-arrow slider-next" aria-label="Slide suivante">&#8250;</button>
+
+    </section>
+
+
+    <!-- ══════════════════════════════════════════════════
+         2. PREUVE DE CRÉDIBILITÉ
+         Réassurance immédiate post-hero — chiffres clés
+         ══════════════════════════════════════════════════ -->
+    <section class="section-sm section-quiet" aria-label="Chiffres clés CFA Lumière">
+      <div class="container">
+        <div class="grid-4">
+
+          <div class="stat">
+            <span class="stat-value">+1 500</span>
+            <span class="stat-label">Apprenants formés</span>
+          </div>
+
+          <div class="stat">
+            <span class="stat-value">2</span>
+            <span class="stat-label">Titres professionnels</span>
+          </div>
+
+          <div class="stat">
+            <span class="stat-value">95%</span>
+            <span class="stat-label">Taux d'insertion</span>
+          </div>
+
+          <div class="stat">
+            <span class="stat-value">10+</span>
+            <span class="stat-label">Ans d'expertise sectorielle</span>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ══════════════════════════════════════════════════
+         3. POSITIONNEMENT
+         Les 4 domaines d'expertise du CFA
+         ══════════════════════════════════════════════════ -->
+    <section class="section" aria-labelledby="expertise-heading">
+      <div class="container">
+
+        <div class="section-header">
+          <span class="eyebrow">Notre expertise</span>
+          <h2 id="expertise-heading">
+            Les métiers techniques de demain, formés aujourd'hui
+          </h2>
+          <p class="lead">
+            CFA Lumière se spécialise dans les filières indispensables
+            aux bâtiments, aux industries et aux infrastructures numériques.
+          </p>
+        </div>
+
+        <div class="grid-4">
+
+          <!-- Électricité -->
+          <article class="card card-ghost card-compact">
+            <h3>Électricité</h3>
+            <p class="text-sm text-muted">
+              Installation, câblage et mise en service des équipements
+              électriques tertiaires et industriels.
+            </p>
+          </article>
+
+          <!-- CVC / Froid -->
+          <article class="card card-ghost card-compact">
+            <h3>CVC / Froid</h3>
+            <p class="text-sm text-muted">
+              Climatisation, ventilation et systèmes frigorifiques
+              pour le confort et la performance énergétique.
+            </p>
+          </article>
+
+          <!-- Maintenance -->
+          <article class="card card-ghost card-compact">
+            <h3>Maintenance technique</h3>
+            <p class="text-sm text-muted">
+              Entretien préventif et curatif des équipements
+              industriels et tertiaires.
+            </p>
+          </article>
+
+          <!-- Data Centers -->
+          <article class="card card-ghost card-compact">
+            <h3>Data Centers</h3>
+            <p class="text-sm text-muted">
+              Gestion des contraintes thermiques et électriques
+              des infrastructures numériques.
+            </p>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="section parallax-section" aria-labelledby="parallax-heading">
+      <div class="container">
+        <div class="parallax-copy">
+          <span class="eyebrow">Image de marque</span>
+          <h2 id="parallax-heading">Un symbole de progrès technique et d’accompagnement humain</h2>
+          <p class="lead">
+            Une image de fond structurante au milieu du parcours, pour renforcer le positionnement
+            du CFA Lumière et garder le ton professionnel du site.
+          </p>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ══════════════════════════════════════════════════
+         4. DOUBLE PARCOURS
+         Segmentation claire : Entreprises / Candidats
+         Chacun doit trouver son entrée sans hésitation
+         ══════════════════════════════════════════════════ -->
+    <section class="section section-quiet" aria-labelledby="parcours-heading">
+      <div class="container">
+
+        <div class="section-header section-header-center">
+          <h2 id="parcours-heading">Un parcours adapté à chaque profil</h2>
+          <p class="lead">
+            Que vous soyez une entreprise en recrutement ou un candidat
+            en reconversion, le CFA Lumière a une solution pour vous.
+          </p>
+        </div>
+
+        <div class="grid-2">
+
+          <!-- Entreprises -->
+          <article class="card parcours-card" aria-labelledby="parcours-entreprises">
+            <div>
+              <span class="badge badge-dark" style="margin-bottom: var(--sp-5);">Entreprises</span>
+              <h3 id="parcours-entreprises">Formez vos futurs techniciens</h3>
+              <p class="lead" style="margin-top: var(--sp-3);">
+                Accueillez un alternant formé sur mesure, opérationnel
+                dès le premier jour d'intégration.
+              </p>
+            </div>
+
+            <ul class="checklist" role="list">
+              <li>
+Zéro coût de recrutement
+              </li>
+              <li>
+Alternant opérationnel dès le départ
+              </li>
+              <li>
+Suivi continu par nos formateurs terrain
+              </li>
+              <li>
+Aides financières mobilisées pour vous
+              </li>
+            </ul>
+
+            <a href="entreprises.html" class="btn btn-primary">
+              Recruter un alternant
+            </a>
+          </article>
+
+          <!-- Candidats -->
+          <article class="card parcours-card" aria-labelledby="parcours-candidats">
+            <div>
+              <span class="badge badge-neutral" style="margin-bottom: var(--sp-5);">Candidats</span>
+              <h3 id="parcours-candidats">Obtenez un titre reconnu en travaillant</h3>
+              <p class="lead" style="margin-top: var(--sp-3);">
+                Formez-vous en alternance dans un secteur en forte demande,
+                sans frais, avec une rémunération dès le premier mois.
+              </p>
+            </div>
+
+            <ul class="checklist" role="list">
+              <li>
+Formation 100% gratuite pour vous
+              </li>
+              <li>
+Rémunération pendant toute la formation
+              </li>
+              <li>
+Titre professionnel reconnu par l'État
+              </li>
+              <li>
+Débouchés immédiats à la sortie de formation
+              </li>
+            </ul>
+
+            <a href="candidats.html" class="btn btn-secondary">
+              Rejoindre une formation
+            </a>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ══════════════════════════════════════════════════
+         5. BLOC MARCHÉ
+         Ancrer le problème pour justifier la solution CFA
+         ══════════════════════════════════════════════════ -->
+    <section class="section section-dark" aria-labelledby="market-heading">
+      <div class="container">
+        <div class="grid-2 market-grid">
+
+          <!-- Texte -->
+          <div>
+            <span class="eyebrow">Le contexte</span>
+            <h2 id="market-heading" style="margin-top: var(--sp-4);">
+              Un secteur en pénurie. Des métiers d'avenir.
+            </h2>
+            <p class="lead" style="margin-top: var(--sp-4);">
+              La France manque structurellement de techniciens qualifiés
+              en énergie, maintenance et CVC. La transition énergétique,
+              la croissance des data centers et la rénovation du parc bâtimentaire
+              créent une demande durable et croissante.
+            </p>
+            <p style="margin-top: var(--sp-4);">
+              Le CFA Lumière forme exactement ces profils — techniciens de terrain
+              capables d'intervenir sur des installations critiques dès leur sortie
+              de formation.
+            </p>
+          </div>
+
+          <!-- Statistiques 2×2 -->
+          <div class="stat-grid-2x2" aria-label="Données sectorielles">
+            <div class="stat">
+              <span class="stat-value">30 000</span>
+              <span class="stat-label">Postes non pourvus en France</span>
+            </div>
+            <div class="stat">
+              <span class="stat-value">+12%</span>
+              <span class="stat-label">Croissance annuelle du secteur</span>
+            </div>
+            <div class="stat">
+              <span class="stat-value">95%</span>
+              <span class="stat-label">Embauche à l'issue de l'alternance</span>
+            </div>
+            <div class="stat">
+              <span class="stat-value">40k€</span>
+              <span class="stat-label">Salaire médian à 3 ans d'expérience</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ══════════════════════════════════════════════════
+         6. BLOC FORMATIONS
+         Résumé des 2 filières avec lien vers le détail
+         ══════════════════════════════════════════════════ -->
+    <section class="section" aria-labelledby="formations-heading">
+      <div class="container">
+
+        <div class="section-header">
+          <span class="eyebrow">Nos formations</span>
+          <h2 id="formations-heading">
+            Deux titres professionnels certifiants
+          </h2>
+          <p class="lead">
+            Des formations courtes, intensives, 100% orientées terrain
+            avec un titre reconnu par l'État à la clé.
+          </p>
+        </div>
+
+        <div class="grid-2">
+
+          <!-- TP Électricité -->
+          <a href="formations.html"
+             class="card card-link"
+             aria-label="Titre professionnel Électricien — voir le programme complet">
+            <div class="cluster" style="margin-bottom: var(--sp-5);">
+              <span class="badge badge-primary">Titre professionnel</span>
+              <span class="badge badge-neutral">Niveau 3 — CAP</span>
+            </div>
+            <h3>Électricien(ne)</h3>
+            <p class="text-muted" style="margin: var(--sp-3) 0 var(--sp-6);">
+              Installation et mise en service des équipements électriques
+              dans les bâtiments tertiaires, industriels et les infrastructures
+              critiques. Habilitations électriques incluses.
+            </p>
+            <hr class="divider" style="margin: 0 0 var(--sp-5);" />
+            <div class="cluster" style="gap: var(--sp-5);">
+              <span class="text-sm text-muted">12 mois</span>
+              <span class="text-sm text-muted">Alternance 3/1</span>
+              <span class="text-sm text-muted">Île-de-France</span>
+            </div>
+          </a>
+
+          <!-- TP CVC / Froid -->
+          <a href="formations.html"
+             class="card card-link"
+             aria-label="Titre professionnel Technicien CVC Froid — voir le programme complet">
+            <div class="cluster" style="margin-bottom: var(--sp-5);">
+              <span class="badge badge-primary">Titre professionnel</span>
+              <span class="badge badge-neutral">Niveau 3 — CAP</span>
+            </div>
+            <h3>Technicien(ne) CVC / Froid</h3>
+            <p class="text-muted" style="margin: var(--sp-3) 0 var(--sp-6);">
+              Maintenance et exploitation des installations de climatisation,
+              ventilation et systèmes frigorifiques. Attestation fluides
+              frigorigènes incluse.
+            </p>
+            <hr class="divider" style="margin: 0 0 var(--sp-5);" />
+            <div class="cluster" style="gap: var(--sp-5);">
+              <span class="text-sm text-muted">12 mois</span>
+              <span class="text-sm text-muted">Alternance 3/1</span>
+              <span class="text-sm text-muted">Île-de-France</span>
+            </div>
+          </a>
+
+        </div>
+
+        <!-- CTA secondaire vers la page formations -->
+        <div style="margin-top: var(--sp-7); text-align: center;">
+          <a href="formations.html" class="link">
+            Voir le détail des programmes et prérequis
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ══════════════════════════════════════════════════
+         7. BLOC RÉASSURANCE
+         3 preuves de qualité — avant le CTA final
+         ══════════════════════════════════════════════════ -->
+    <section class="section section-quiet" aria-labelledby="reassurance-heading">
+      <div class="container">
+
+        <div class="section-header section-header-center">
+          <h2 id="reassurance-heading">Ce qui nous distingue</h2>
+          <p class="lead">
+            Des engagements concrets, pas des promesses.
+          </p>
+        </div>
+
+        <div class="grid-3">
+
+          <div class="step">
+            <div class="step-number" aria-hidden="true">1</div>
+            <div class="step-body">
+              <h4>Accompagnement terrain individualisé</h4>
+              <p class="text-sm text-muted">
+                Chaque apprenant est suivi par un formateur référent
+                en contact direct avec l'entreprise d'accueil tout au
+                long du contrat.
+              </p>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-number" aria-hidden="true">2</div>
+            <div class="step-body">
+              <h4>Formateurs issus du secteur</h4>
+              <p class="text-sm text-muted">
+                Nos formateurs viennent du terrain — maintenance industrielle,
+                CVC, électricité de bâtiment. Pas de théorie déconnectée
+                de la réalité.
+              </p>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-number" aria-hidden="true">3</div>
+            <div class="step-body">
+              <h4>Suivi jusqu'à l'insertion</h4>
+              <p class="text-sm text-muted">
+                Nos diplômés et nos entreprises partenaires bénéficient
+                d'un suivi post-formation. Nous restons présents après
+                la certification.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ══════════════════════════════════════════════════
+         8. CTA FINAL — ÊTRE RAPPELÉ
+         Friction minimale : nom + téléphone + profil
+         Objectif : capturer le lead, pas tout remplir
+         ══════════════════════════════════════════════════ -->
+    <section class="section section-dark" aria-labelledby="cta-heading">
+      <div class="container" style="max-width: 640px;">
+
+        <div class="section-header section-header-center">
+          <span class="eyebrow">Prenons contact</span>
+          <h2 id="cta-heading" style="margin-top: var(--sp-4);">
+            Être rappelé par un conseiller
+          </h2>
+          <p class="lead">
+            Laissez vos coordonnées. Un conseiller CFA Lumière
+            vous contacte sous 24 heures ouvrées.
+          </p>
+        </div>
+
+        <form
+          class="callback-form stack stack-4"
+          novalidate
+          aria-label="Formulaire de demande de rappel"
+        >
+
+          <!-- Nom + Téléphone côte à côte sur desktop -->
+          <div class="grid-2" style="gap: var(--sp-4);">
+            <div class="form-field">
+              <label class="form-label label-light" for="cb-name">
+                Votre nom
+              </label>
+              <input
+                class="form-control form-control-light"
+                id="cb-name"
+                name="name"
+                type="text"
+                placeholder="Jean Dupont"
+                autocomplete="name"
+                required
+              />
+            </div>
+            <div class="form-field">
+              <label class="form-label label-light" for="cb-phone">
+                Téléphone
+              </label>
+              <input
+                class="form-control form-control-light"
+                id="cb-phone"
+                name="phone"
+                type="tel"
+                placeholder="06 00 00 00 00"
+                autocomplete="tel"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="form-field">
+            <label class="form-label label-light" for="cb-profile">
+              Je suis
+            </label>
+            <select
+              class="form-control form-control-light"
+              id="cb-profile"
+              name="profile"
+            >
+              <option value="" disabled selected>Choisir votre profil</option>
+              <option value="candidat">Candidat en recherche de formation</option>
+              <option value="entreprise">Entreprise souhaitant recruter</option>
+            </select>
+          </div>
+
+          <div style="margin-top: var(--sp-2);">
+            <button type="submit" class="btn btn-primary btn-full btn-lg">
+              Être rappelé
+            </button>
+            <p class="text-xs" style="margin-top: var(--sp-3); text-align: center; color: rgba(255,255,255,0.42);">
+              Données traitées conformément au RGPD.
+              Aucun démarchage commercial.
+            </p>
+          </div>
+
+        </form>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer chargé dynamiquement -->
+  <div id="footer"></div>
+
+  <script src="js/main.js"></script>
+
+  <script>
+    /* ── Hero Slider ──────────────────────────────── */
+    (function () {
+      const slides   = document.querySelectorAll('.hero-slide');
+      const dots     = document.querySelectorAll('.slider-dot');
+      const progress = document.getElementById('slider-progress');
+      const DELAY    = 5200; /* ms — doit correspondre à la durée CSS */
+      let current    = 0;
+      let timer      = null;
+
+      function goTo(index) {
+        slides[current].classList.remove('is-active');
+        dots[current].classList.remove('is-active');
+        current = (index + slides.length) % slides.length;
+        slides[current].classList.add('is-active');
+        dots[current].classList.add('is-active');
+        /* Réinitialise la barre de progression */
+        if (progress) {
+          progress.classList.remove('is-running');
+          void progress.offsetWidth; /* force reflow */
+          progress.classList.add('is-running');
+        }
+      }
+
+      function next() { goTo(current + 1); }
+      function prev() { goTo(current - 1); }
+
+      function startAuto() {
+        clearInterval(timer);
+        timer = setInterval(next, DELAY);
+      }
+
+      if (slides.length > 1) {
+        /* Lancement de la barre de progression initiale */
+        if (progress) progress.classList.add('is-running');
+
+        /* Flèches */
+        document.querySelector('.slider-prev')
+          ?.addEventListener('click', () => { prev(); startAuto(); });
+        document.querySelector('.slider-next')
+          ?.addEventListener('click', () => { next(); startAuto(); });
+
+        /* Dots */
+        dots.forEach(dot => {
+          dot.addEventListener('click', () => {
+            goTo(parseInt(dot.dataset.slide, 10));
+            startAuto();
+          });
+        });
+
+        /* Pause au survol du slider */
+        const track = document.querySelector('.slides-track');
+        track?.addEventListener('mouseenter', () => {
+          clearInterval(timer);
+          if (progress) progress.classList.remove('is-running');
+        });
+        track?.addEventListener('mouseleave', () => {
+          startAuto();
+          if (progress) {
+            void progress.offsetWidth;
+            progress.classList.add('is-running');
+          }
+        });
+
+        startAuto();
+      }
+    })();
+  </script>
+</body>
+</html>

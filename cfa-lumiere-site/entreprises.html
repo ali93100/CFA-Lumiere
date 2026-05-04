@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CFA Lumière — Recruter un alternant technique | Entreprises</title>
+  <meta name="description"
+    content="Recrutez un alternant en électricité, CVC/froid ou maintenance technique. CFA Lumière présélectionne les candidats, gère l'administratif et assure le suivi tout au long du contrat." />
+  <link rel="stylesheet" href="styles/main.css" />
+  <link rel="icon" href="assets/images/favicon.jpg" type="image/jpeg" />
+
+  <style>
+    /* ── Styles spécifiques à la page Entreprises ────────── */
+
+    /* Layout principal : contenu gauche + formulaire droit */
+    .ent-grid {
+      display: grid;
+      gap: var(--sp-10);
+      align-items: start;
+    }
+
+    @media (min-width: 1024px) {
+      .ent-grid {
+        grid-template-columns: 1fr 420px;
+      }
+    }
+
+    /* Formulaire collant sur desktop */
+    .form-sticky {
+      position: sticky;
+      top: calc(var(--navbar-height) + var(--sp-6));
+    }
+
+    /* Titres de sous-sections dans la colonne gauche */
+    .content-block {
+      padding-bottom: var(--sp-9);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .content-block:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .content-block-title {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-3);
+      margin-bottom: var(--sp-6);
+    }
+
+    .content-block-title .badge {
+      flex-shrink: 0;
+    }
+
+    /* Card métier compacte : icône + texte inline */
+    .metier-card {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--sp-4);
+    }
+
+    .metier-card h4 {
+      margin-bottom: var(--sp-1);
+    }
+
+    /* Bénéfice : icône coche + contenu */
+    .benefit-item {
+      display: flex;
+      gap: var(--sp-4);
+      align-items: flex-start;
+    }
+
+    /* Ligne de connexion entre steps */
+    .steps-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .step-item {
+      display: flex;
+      gap: var(--sp-5);
+      position: relative;
+    }
+
+    /* Ligne verticale reliant les bullets */
+    .step-item:not(:last-child)::before {
+      content: '';
+      position: absolute;
+      left: 1.2rem;           /* centre du bullet (2.5rem / 2 = 1.25rem ≈ 1.2rem) */
+      top: 2.5rem;            /* sous le bullet */
+      bottom: 0;
+      width: 1.5px;
+      background: var(--color-border);
+    }
+
+    .step-item-body {
+      padding-bottom: var(--sp-7);
+    }
+
+    .step-item:last-child .step-item-body {
+      padding-bottom: 0;
+    }
+
+    .step-item-body h4 {
+      margin-bottom: var(--sp-2);
+    }
+
+    /* Formulaire — champs en grille 2 colonnes sur desktop */
+    .form-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--sp-4);
+    }
+
+    @media (min-width: 640px) {
+      .form-grid-2 {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .form-grid-full {
+      grid-column: 1 / -1;
+    }
+
+    /* Garantie RGPD sous le CTA */
+    .form-rgpd {
+      font-size: var(--text-xs);
+      color: var(--color-text-muted);
+      text-align: center;
+      margin-top: var(--sp-3);
+      line-height: 1.5;
+    }
+
+    /* Section preuve : fond alterné avec divider accent */
+    .proof-strip {
+      border-top: 1px solid var(--color-border);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    /* Grid 5 stats pour la section preuve */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--sp-6);
+    }
+
+    @media (min-width: 768px) {
+      .stats-row {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    /* Hero entreprises : tag métier dans la liste rapide */
+    .metier-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--sp-2);
+      font-size: var(--text-sm);
+      color: rgba(255, 255, 255, 0.80);
+    }
+
+    .metier-tag::before {
+      content: '';
+      display: block;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--color-accent);
+      flex-shrink: 0;
+    }
+
+    /* ── Image de fond du hero entreprises ── */
+    .hero-dark {
+      background:
+        linear-gradient(160deg, rgba(23,43,54,0.82) 0%, rgba(17,76,90,0.78) 100%),
+        url('https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1920&q=80') center / cover no-repeat;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="navbar"></div>
+
+  <main id="main-content">
+
+    <!-- ══════════════════════════════════════════════════
+         1. HERO
+         Ton B2B direct — dark pour différencier de l'accueil
+         ══════════════════════════════════════════════════ -->
+    <section class="hero hero-dark" aria-labelledby="hero-heading">
+      <div class="container">
+        <div class="hero-content">
+
+          <span class="eyebrow hero-eyebrow anim-fade-in">
+            Entreprises partenaires
+          </span>
+
+          <h1 id="hero-heading" class="hero-title anim-fade-up anim-delay-1">
+            Recrutez un alternant technique opérationnel
+          </h1>
+
+          <!-- Métiers en ligne — lecture rapide -->
+          <div class="anim-fade-up anim-delay-2"
+               style="display: flex; flex-wrap: wrap; gap: var(--sp-4) var(--sp-6);
+                      margin-bottom: var(--sp-7);">
+            <span class="metier-tag">Électricité</span>
+            <span class="metier-tag">CVC / Froid</span>
+            <span class="metier-tag">Maintenance technique</span>
+            <span class="metier-tag">Infrastructures critiques</span>
+          </div>
+
+          <div class="hero-actions anim-fade-up anim-delay-3">
+            <a href="#form-entreprise" class="btn btn-primary btn-lg">
+              Je cherche un alternant
+            </a>
+            <a href="#form-entreprise" class="btn btn-ghost btn-lg">
+              Planifier un échange de 20 min
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ══════════════════════════════════════════════════
+         2. PROMESSE
+         Une phrase. Un engagement. Pas de bla-bla.
+         ══════════════════════════════════════════════════ -->
+    <section class="section-sm section-quiet proof-strip" aria-label="Notre engagement">
+      <div class="container">
+        <div style="max-width: 64ch; margin-inline: auto; text-align: center;">
+          <p style="font-size: var(--text-lg); font-weight: 500;
+                    color: var(--color-primary-dk); line-height: 1.6; margin: 0;">
+            Nous vous aidons à recruter des profils techniques motivés,
+            formés terrain et adaptés à vos process — sans aucun coût de recrutement.
+          </p>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ══════════════════════════════════════════════════
+         LAYOUT PRINCIPAL : contenu gauche / formulaire droit
+         Formulaire en sticky sur desktop (visible dès le scroll)
+         ══════════════════════════════════════════════════ -->
+    <section class="section">
+      <div class="container">
+        <div class="ent-grid">
+
+          <!-- ── COLONNE GAUCHE : contenu ──────────────── -->
+          <div class="stack stack-6" style="gap: 0;">
+
+
+            <!-- 3. MÉTIERS CONCERNÉS ───────────────────── -->
+            <div class="content-block">
+              <div class="content-block-title">
+                <span class="badge badge-neutral">Métiers</span>
+                <h2 style="font-size: var(--text-xl); margin: 0;">
+                  Vos besoins techniques, nos filières
+                </h2>
+              </div>
+
+              <div class="grid-2" style="gap: var(--sp-5);">
+
+                <article class="metier-card">
+                  <div>
+                    <h4>Électricité</h4>
+                    <p class="text-sm text-muted">
+                      Câblage, installation, mise en service. Tertiaire et industriel.
+                    </p>
+                  </div>
+                </article>
+
+                <article class="metier-card">
+                  <div>
+                    <h4>CVC / Froid</h4>
+                    <p class="text-sm text-muted">
+                      Climatisation, ventilation, systèmes frigorifiques.
+                    </p>
+                  </div>
+                </article>
+
+                <article class="metier-card">
+                  <div>
+                    <h4>Maintenance technique</h4>
+                    <p class="text-sm text-muted">
+                      Préventif, curatif. Équipements industriels et tertiaires.
+                    </p>
+                  </div>
+                </article>
+
+                <article class="metier-card">
+                  <div>
+                    <h4>Infrastructures critiques</h4>
+                    <p class="text-sm text-muted">
+                      Data centers, salles blanches, réseaux d'énergie.
+                    </p>
+                  </div>
+                </article>
+
+              </div>
+            </div><!-- /content-block métiers -->
+
+
+            <!-- 4. BÉNÉFICES ENTREPRISE ─────────────────── -->
+            <div class="content-block" style="padding-top: var(--sp-9);">
+              <div class="content-block-title">
+                <span class="badge badge-neutral">Vos avantages</span>
+                <h2 style="font-size: var(--text-xl); margin: 0;">
+                  Ce que vous gagnez concrètement
+                </h2>
+              </div>
+
+              <div class="stack stack-6" style="gap: var(--sp-6);">
+
+                <div class="benefit-item">
+                  <div>
+                    <h4>Présélection des candidats</h4>
+                    <p class="text-sm text-muted">
+                      Nous filtrons les profils selon vos critères techniques,
+                      géographiques et comportementaux. Vous ne rencontrez
+                      que des candidats validés.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="benefit-item">
+                  <div>
+                    <h4>Accompagnement administratif complet</h4>
+                    <p class="text-sm text-muted">
+                      Contrat, OPCO, aides à l'embauche : nous gérons
+                      l'intégralité des démarches administratives pour vous.
+                      Zéro friction côté RH.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="benefit-item">
+                  <div>
+                    <h4>Suivi tout au long du contrat</h4>
+                    <p class="text-sm text-muted">
+                      Un formateur référent reste en lien avec vous et l'alternant
+                      pendant toute la durée du contrat. Points réguliers, réactivité
+                      en cas de difficulté.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="benefit-item">
+                  <div>
+                    <h4>Vivier de recrutement durable</h4>
+                    <p class="text-sm text-muted">
+                      En devenant entreprise partenaire, vous accédez en priorité
+                      à nos promotions futures. Vos besoins techniques sont anticipés
+                      d'une session sur l'autre.
+                    </p>
+                  </div>
+                </div>
+
+              </div>
+            </div><!-- /content-block bénéfices -->
+
+
+            <!-- 5. PROCESS EN 5 ÉTAPES ──────────────────── -->
+            <div class="content-block" style="padding-top: var(--sp-9);">
+              <div class="content-block-title">
+                <span class="badge badge-neutral">Process</span>
+                <h2 style="font-size: var(--text-xl); margin: 0;">
+                  Comment ça se passe
+                </h2>
+              </div>
+
+              <div class="steps-list" role="list">
+
+                <div class="step-item" role="listitem">
+                  <div class="step-number" aria-label="Étape 1">1</div>
+                  <div class="step-item-body">
+                    <h4>Analyse de votre besoin</h4>
+                    <p class="text-sm text-muted">
+                      Un conseiller vous contacte pour comprendre votre
+                      contexte technique, votre organisation et le profil
+                      idéal que vous recherchez.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="step-item" role="listitem">
+                  <div class="step-number" aria-label="Étape 2">2</div>
+                  <div class="step-item-body">
+                    <h4>Présélection des candidats</h4>
+                    <p class="text-sm text-muted">
+                      Nous sélectionnons 2 à 4 profils correspondant
+                      à vos critères. Vous recevez les CVs et une fiche
+                      de présentation de chaque candidat.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="step-item" role="listitem">
+                  <div class="step-number" aria-label="Étape 3">3</div>
+                  <div class="step-item-body">
+                    <h4>Mise en relation et entretiens</h4>
+                    <p class="text-sm text-muted">
+                      Vous rencontrez les candidats présélectionnés.
+                      Nous facilitons les entretiens et vous aidons
+                      à faire votre choix.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="step-item" role="listitem">
+                  <div class="step-number" aria-label="Étape 4">4</div>
+                  <div class="step-item-body">
+                    <h4>Signature du contrat</h4>
+                    <p class="text-sm text-muted">
+                      Nous gérons la rédaction du contrat d'alternance,
+                      le dépôt OPCO et les démarches d'aides financières
+                      auxquelles vous avez droit.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="step-item" role="listitem">
+                  <div class="step-number" aria-label="Étape 5">5</div>
+                  <div class="step-item-body">
+                    <h4>Suivi tout au long de la formation</h4>
+                    <p class="text-sm text-muted">
+                      Points réguliers, bilans intermédiaires, intervention
+                      en cas de difficulté. Vous n'êtes jamais seul face
+                      à la gestion de l'alternant.
+                    </p>
+                  </div>
+                </div>
+
+              </div>
+            </div><!-- /content-block process -->
+
+
+          </div><!-- /colonne gauche -->
+
+
+          <!-- ── COLONNE DROITE : formulaire ──────────── -->
+          <div class="form-sticky" id="form-entreprise">
+            <div class="card" style="padding: var(--sp-6);">
+
+              <div style="margin-bottom: var(--sp-5);">
+                <h2 style="font-size: var(--text-xl); margin-bottom: var(--sp-2);">
+                  Trouver mon alternant
+                </h2>
+                <p class="text-sm text-muted">
+                  Répondez en 2 minutes. Un conseiller vous rappelle
+                  sous 24h ouvrées.
+                </p>
+              </div>
+
+              <!-- ══ FORMULAIRE LEAD ENTREPRISE ══ -->
+              <form
+                class="entreprises-form"
+                novalidate
+                aria-label="Formulaire de demande de recrutement alternant"
+              >
+                <div class="stack stack-4" style="gap: var(--sp-4);">
+
+                  <!-- Nom de l'entreprise -->
+                  <div class="form-field">
+                    <label class="form-label" for="ent-company">
+                      Entreprise <span class="req" aria-hidden="true">*</span>
+                    </label>
+                    <input
+                      class="form-control"
+                      id="ent-company"
+                      name="company"
+                      type="text"
+                      placeholder="Nom de l'entreprise"
+                      autocomplete="organization"
+                      required
+                    />
+                  </div>
+
+                  <!-- Prénom + Nom -->
+                  <div class="form-grid-2">
+                    <div class="form-field">
+                      <label class="form-label" for="ent-firstname">
+                        Prénom <span class="req" aria-hidden="true">*</span>
+                      </label>
+                      <input
+                        class="form-control"
+                        id="ent-firstname"
+                        name="firstname"
+                        type="text"
+                        placeholder="Jean"
+                        autocomplete="given-name"
+                        required
+                      />
+                    </div>
+                    <div class="form-field">
+                      <label class="form-label" for="ent-lastname">
+                        Nom <span class="req" aria-hidden="true">*</span>
+                      </label>
+                      <input
+                        class="form-control"
+                        id="ent-lastname"
+                        name="lastname"
+                        type="text"
+                        placeholder="Dupont"
+                        autocomplete="family-name"
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <!-- Fonction -->
+                  <div class="form-field">
+                    <label class="form-label" for="ent-role">Fonction</label>
+                    <input
+                      class="form-control"
+                      id="ent-role"
+                      name="role"
+                      type="text"
+                      placeholder="Responsable RH, Dirigeant..."
+                      autocomplete="organization-title"
+                    />
+                  </div>
+
+                  <!-- Téléphone + Email -->
+                  <div class="form-grid-2">
+                    <div class="form-field">
+                      <label class="form-label" for="ent-phone">
+                        Téléphone <span class="req" aria-hidden="true">*</span>
+                      </label>
+                      <input
+                        class="form-control"
+                        id="ent-phone"
+                        name="phone"
+                        type="tel"
+                        placeholder="06 00 00 00 00"
+                        autocomplete="tel"
+                        required
+                      />
+                    </div>
+                    <div class="form-field">
+                      <label class="form-label" for="ent-email">
+                        Email <span class="req" aria-hidden="true">*</span>
+                      </label>
+                      <input
+                        class="form-control"
+                        id="ent-email"
+                        name="email"
+                        type="email"
+                        placeholder="jean@exemple.fr"
+                        autocomplete="email"
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <!-- Secteur d'activité -->
+                  <div class="form-field">
+                    <label class="form-label" for="ent-sector">
+                      Secteur d'activité <span class="req" aria-hidden="true">*</span>
+                    </label>
+                    <select class="form-control" id="ent-sector" name="sector" required>
+                      <option value="" disabled selected>Choisir votre secteur</option>
+                      <option value="electricite">Électricité / Génie électrique</option>
+                      <option value="cvc-froid">CVC / Climatisation / Froid</option>
+                      <option value="maintenance">Maintenance industrielle</option>
+                      <option value="btp">Bâtiment / BTP</option>
+                      <option value="datacenter">Data centers / Infrastructure IT</option>
+                      <option value="industrie">Industrie / Production</option>
+                      <option value="autre">Autre</option>
+                    </select>
+                  </div>
+
+                  <!-- Nb alternants + Période -->
+                  <div class="form-grid-2">
+                    <div class="form-field">
+                      <label class="form-label" for="ent-count">
+                        Alternants souhaités
+                      </label>
+                      <select class="form-control" id="ent-count" name="count">
+                        <option value="" disabled selected>Combien ?</option>
+                        <option value="1">1</option>
+                        <option value="2-3">2 à 3</option>
+                        <option value="4-5">4 à 5</option>
+                        <option value="6+">6 ou plus</option>
+                      </select>
+                    </div>
+                    <div class="form-field">
+                      <label class="form-label" for="ent-period">
+                        Période souhaitée
+                      </label>
+                      <select class="form-control" id="ent-period" name="period">
+                        <option value="" disabled selected>Quand ?</option>
+                        <option value="sept-2025">Septembre 2025</option>
+                        <option value="jan-2026">Janvier 2026</option>
+                        <option value="sept-2026">Septembre 2026</option>
+                        <option value="flexible">Flexible</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <!-- Zone géographique -->
+                  <div class="form-field">
+                    <label class="form-label" for="ent-zone">Zone géographique</label>
+                    <select class="form-control" id="ent-zone" name="zone">
+                      <option value="" disabled selected>Votre zone</option>
+                      <option value="paris">Paris intra-muros</option>
+                      <option value="petite-couronne">Petite couronne (92, 93, 94)</option>
+                      <option value="grande-couronne">Grande couronne (77, 78, 91, 95)</option>
+                      <option value="hors-idf">Hors Île-de-France</option>
+                    </select>
+                  </div>
+
+                  <!-- Message -->
+                  <div class="form-field">
+                    <label class="form-label" for="ent-message">
+                      Précisez votre besoin
+                    </label>
+                    <textarea
+                      class="form-control"
+                      id="ent-message"
+                      name="message"
+                      rows="3"
+                      placeholder="Compétences recherchées, contexte de l'équipe, contraintes particulières..."
+                    ></textarea>
+                  </div>
+
+                  <!-- CTA -->
+                  <div>
+                    <button
+                      type="submit"
+                      class="btn btn-primary btn-full"
+                      style="min-height: 3.25rem; font-size: var(--text-base);"
+                    >
+                      Être rappelé sous 24h
+                    </button>
+                    <p class="form-rgpd">
+                      Données traitées conformément au RGPD.
+                      Aucun démarchage commercial sans votre accord.
+                    </p>
+                  </div>
+
+                </div>
+              </form>
+              <!-- /formulaire -->
+
+            </div>
+          </div><!-- /colonne droite -->
+
+        </div><!-- /ent-grid -->
+      </div><!-- /container -->
+    </section>
+
+
+    <!-- ══════════════════════════════════════════════════
+         6. PREUVE DE CRÉDIBILITÉ
+         Chiffres courts, impact maximum
+         ══════════════════════════════════════════════════ -->
+    <section class="section-sm section-quiet" aria-label="Chiffres clés">
+      <div class="container">
+
+        <div style="text-align: center; margin-bottom: var(--sp-8);">
+          <h2 style="font-size: var(--text-xl); margin-bottom: var(--sp-3);">
+            +1 500 apprenants formés depuis notre création
+          </h2>
+          <p class="text-muted">
+            Des entreprises de toutes tailles — TPE, PME, grands comptes —
+            nous font confiance pour former leurs équipes techniques.
+          </p>
+        </div>
+
+        <div class="stats-row">
+          <div class="stat">
+            <span class="stat-value">+1 500</span>
+            <span class="stat-label">Apprenants formés</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value">95%</span>
+            <span class="stat-label">Taux d'embauche en fin de contrat</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value">10+</span>
+            <span class="stat-label">Ans d'expérience dans le secteur</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value">2</span>
+            <span class="stat-label">Titres professionnels certifiants</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value">0€</span>
+            <span class="stat-label">Coût de recrutement pour vous</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ══════════════════════════════════════════════════
+         7. RÉASSURANCE FINALE
+         Trois preuves courtes avant le CTA de clôture
+         ══════════════════════════════════════════════════ -->
+    <section class="section" aria-labelledby="reassurance-heading">
+      <div class="container">
+
+        <div class="section-header section-header-center">
+          <h2 id="reassurance-heading">Vous n'êtes pas seul</h2>
+          <p class="lead">
+            Un interlocuteur dédié de la première prise de contact
+            jusqu'à la fin du contrat.
+          </p>
+        </div>
+
+        <div class="grid-3">
+
+          <div class="card card-ghost card-compact">
+            <h4>Réponse rapide</h4>
+            <p class="text-sm text-muted">
+              Un conseiller vous contacte sous 24h ouvrées après
+              chaque demande. Pas de formulaire qui disparaît dans le vide.
+            </p>
+          </div>
+
+          <div class="card card-ghost card-compact">
+            <h4>Zéro frais cachés</h4>
+            <p class="text-sm text-muted">
+              L'accompagnement, la formation et la gestion administrative
+              sont pris en charge par votre OPCO. Nous vous expliquons
+              chaque étape en transparence.
+            </p>
+          </div>
+
+          <div class="card card-ghost card-compact">
+            <h4>Interlocuteur unique</h4>
+            <p class="text-sm text-muted">
+              Un seul contact pour tout : recrutement, contrat,
+              suivi pédagogique. Pas de transfert entre services.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ══════════════════════════════════════════════════
+         8. CTA FINAL
+         "Devenir entreprise partenaire" — ancrage et conversion
+         ══════════════════════════════════════════════════ -->
+    <section class="section section-dark" aria-labelledby="cta-final-heading">
+      <div class="container" style="max-width: 640px; text-align: center;">
+
+        <span class="eyebrow">Devenez partenaire</span>
+
+        <h2 id="cta-final-heading" style="margin-top: var(--sp-4);">
+          Devenir entreprise partenaire CFA Lumière
+        </h2>
+        <p class="lead" style="margin-top: var(--sp-4);">
+          Un seul alternant peut suffire à changer le rythme de votre équipe.
+          Rejoignez les entreprises qui anticipent leurs besoins en compétences techniques.
+        </p>
+
+        <div class="cluster" style="justify-content: center; margin-top: var(--sp-7);">
+          <a href="#form-entreprise" class="btn btn-primary btn-lg">
+            Être rappelé sous 24h
+          </a>
+          <a href="contact.html" class="btn btn-ghost">
+            Autre question
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <div id="footer"></div>
+  <script src="js/main.js"></script>
+</body>
+</html>

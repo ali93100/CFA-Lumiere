@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CFA Lumière — Mentions légales &amp; Politique de confidentialité</title>
+  <meta name="description"
+    content="Mentions légales, politique de confidentialité et gestion des données personnelles du site CFA Lumière." />
+  <link rel="stylesheet" href="styles/main.css" />
+  <link rel="icon" href="assets/images/favicon.jpg" type="image/jpeg" />
+
+  <style>
+    /* ════════════════════════════════════════════════
+       Styles spécifiques — Mentions légales
+       ════════════════════════════════════════════════ */
+
+    /* ── Hero compact ── */
+    .hero-legal {
+      min-height: 0;
+      padding: var(--sp-10) 0 var(--sp-8);
+      background: var(--color-primary-dk);
+      color: var(--color-text-inv);
+    }
+    .hero-legal .eyebrow { color: var(--color-accent); background: rgba(255,200,1,0.12); }
+    .hero-legal h1       { color: var(--color-text-inv); font-size: clamp(1.75rem, 4vw, var(--text-3xl)); }
+    .hero-legal p        { color: var(--color-text-inv-muted); margin-top: var(--sp-4); max-width: 52ch; }
+
+    /* Badge date de mise à jour */
+    .update-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--sp-2);
+      margin-top: var(--sp-5);
+      padding: var(--sp-1) var(--sp-4);
+      background: rgba(255,200,1,0.10);
+      border: 1px solid rgba(255,200,1,0.28);
+      border-radius: var(--radius-pill);
+      font-size: var(--text-xs);
+      font-weight: 600;
+      color: var(--color-accent);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* ── Layout : sommaire gauche + contenu droite ── */
+    .legal-layout {
+      display: grid;
+      gap: var(--sp-10);
+      align-items: start;
+    }
+    @media (min-width: 1024px) {
+      .legal-layout { grid-template-columns: 220px 1fr; }
+    }
+
+    /* ── Sommaire sticky ── */
+    .legal-toc {
+      position: sticky;
+      top: calc(var(--navbar-height) + var(--sp-5));
+    }
+    .legal-toc-title {
+      font-size: var(--text-xs);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.10em;
+      color: var(--color-text-muted);
+      padding-bottom: var(--sp-3);
+      border-bottom: 1.5px solid var(--color-border);
+      margin-bottom: var(--sp-3);
+    }
+    .legal-toc-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .legal-toc-link {
+      display: block;
+      padding: var(--sp-2) var(--sp-3);
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+      border-radius: var(--radius-s);
+      line-height: 1.4;
+      transition: background var(--t-fast) ease, color var(--t-fast) ease;
+    }
+    .legal-toc-link:hover {
+      background: var(--color-bg-alt);
+      color: var(--color-primary-dk);
+    }
+    /* Mobile : liste horizontale compacte */
+    @media (max-width: 1023px) {
+      .legal-toc {
+        position: static;
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-m);
+        padding: var(--sp-4) var(--sp-5);
+        box-shadow: var(--shadow-s);
+      }
+      .legal-toc-list {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: var(--sp-2);
+      }
+      .legal-toc-link {
+        background: var(--color-bg-alt);
+        white-space: nowrap;
+        font-size: var(--text-xs);
+      }
+    }
+
+    /* ── Sections de contenu ── */
+    .legal-section {
+      scroll-margin-top: calc(var(--navbar-height) + var(--sp-5));
+      padding-bottom: var(--sp-10);
+      border-bottom: 1px solid var(--color-border);
+      margin-bottom: var(--sp-10);
+    }
+    .legal-section:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+      margin-bottom: 0;
+    }
+
+    /* Numéro + titre de section */
+    .legal-section-header {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--sp-4);
+      margin-bottom: var(--sp-7);
+    }
+    .legal-section-num {
+      flex-shrink: 0;
+      width: 2.25rem;
+      height: 2.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--color-primary-dk);
+      color: var(--color-text-inv);
+      border-radius: var(--radius-s);
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: var(--text-sm);
+      margin-top: 0.25rem;
+    }
+    .legal-section-title {
+      font-family: var(--font-heading);
+      font-size: clamp(1.25rem, 3vw, var(--text-2xl));
+      font-weight: 500;
+      color: var(--color-primary-dk);
+      line-height: var(--leading-heading);
+    }
+
+    /* Sous-section */
+    .legal-block {
+      margin-bottom: var(--sp-7);
+    }
+    .legal-block:last-child { margin-bottom: 0; }
+
+    .legal-block-title {
+      font-family: var(--font-heading);
+      font-size: var(--text-lg);
+      font-weight: 500;
+      color: var(--color-primary);
+      margin-bottom: var(--sp-3);
+      padding-bottom: var(--sp-2);
+      border-bottom: 1px dashed var(--color-border);
+    }
+
+    /* Texte courant */
+    .legal-p {
+      font-size: var(--text-base);
+      color: var(--color-text);
+      line-height: var(--leading-body);
+      margin-bottom: var(--sp-4);
+    }
+    .legal-p:last-child { margin-bottom: 0; }
+    .legal-p strong { color: var(--color-primary-dk); font-weight: 700; }
+
+    /* Liste à puces accent */
+    .legal-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-2);
+      margin: var(--sp-3) 0 var(--sp-4);
+      padding-left: 0;
+      list-style: none;
+    }
+    .legal-list li {
+      display: flex;
+      align-items: baseline;
+      gap: var(--sp-3);
+      font-size: var(--text-base);
+      color: var(--color-text);
+      line-height: var(--leading-body);
+    }
+    .legal-list li::before {
+      content: '';
+      display: inline-block;
+      flex-shrink: 0;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--color-accent);
+      position: relative;
+      top: -0.1em;
+    }
+
+    /* Bloc d'info encadré (identité, hébergeur…) */
+    .legal-infobox {
+      background: var(--color-bg-alt);
+      border-left: 3px solid var(--color-primary);
+      border-radius: 0 var(--radius-m) var(--radius-m) 0;
+      padding: var(--sp-5) var(--sp-6);
+      margin: var(--sp-4) 0;
+    }
+    .legal-infobox p {
+      font-size: var(--text-sm);
+      color: var(--color-text);
+      line-height: 1.8;
+    }
+    .legal-infobox p strong {
+      display: block;
+      font-size: var(--text-base);
+      color: var(--color-primary-dk);
+      font-weight: 700;
+      margin-bottom: var(--sp-1);
+    }
+
+    /* Placeholder — info à compléter */
+    .placeholder {
+      display: inline-block;
+      background: rgba(255,200,1,0.18);
+      border: 1px dashed var(--color-accent-dk);
+      border-radius: var(--radius-s);
+      padding: 0.1em 0.5em;
+      font-style: italic;
+      font-size: 0.95em;
+      color: var(--color-primary-dk);
+    }
+
+    /* Tableau RGPD */
+    .legal-table-wrap {
+      overflow-x: auto;
+      margin: var(--sp-5) 0;
+      border-radius: var(--radius-m);
+      box-shadow: var(--shadow-s);
+    }
+    .legal-table {
+      width: 100%;
+      min-width: 540px;
+      border-collapse: collapse;
+      font-size: var(--text-sm);
+    }
+    .legal-table th {
+      background: var(--color-primary);
+      color: var(--color-text-inv);
+      font-family: var(--font-heading);
+      font-weight: 500;
+      text-align: left;
+      padding: var(--sp-3) var(--sp-4);
+      letter-spacing: 0.03em;
+    }
+    .legal-table th:first-child { border-radius: var(--radius-s) 0 0 0; }
+    .legal-table th:last-child  { border-radius: 0 var(--radius-s) 0 0; }
+    .legal-table td {
+      padding: var(--sp-3) var(--sp-4);
+      background: var(--color-surface);
+      border-bottom: 1px solid var(--color-border);
+      color: var(--color-text);
+      vertical-align: top;
+      line-height: 1.55;
+    }
+    .legal-table tr:nth-child(even) td { background: var(--color-bg); }
+    .legal-table tr:last-child td { border-bottom: none; }
+
+    /* Bouton contact DPO */
+    .dpo-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--sp-2);
+      padding: var(--sp-3) var(--sp-5);
+      background: var(--color-primary);
+      color: var(--color-text-inv);
+      border-radius: var(--radius-pill);
+      font-size: var(--text-sm);
+      font-weight: 600;
+      margin-top: var(--sp-4);
+      transition: background var(--t-fast) ease;
+      text-decoration: none;
+    }
+    .dpo-cta:hover { background: var(--color-primary-dk); color: var(--color-text-inv); }
+
+    /* Alerte info RGPD */
+    .legal-note {
+      display: flex;
+      gap: var(--sp-3);
+      align-items: flex-start;
+      padding: var(--sp-4) var(--sp-5);
+      background: rgba(17,76,90,0.05);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-m);
+      margin: var(--sp-5) 0;
+    }
+    .legal-note svg { flex-shrink: 0; color: var(--color-primary); margin-top: 0.1rem; }
+    .legal-note p   { font-size: var(--text-sm); color: var(--color-text-muted); line-height: 1.65; margin: 0; }
+
+    /* ── Image de fond du hero légal ── */
+    .hero-legal {
+      background:
+        linear-gradient(160deg, rgba(23,43,54,0.88) 0%, rgba(17,76,90,0.82) 100%),
+        url('https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1920&q=80') center / cover no-repeat;
+    }
+  </style>
+</head>
+<body>
+
+  <a href="#main-content" class="skip-link">Aller au contenu principal</a>
+  <div id="navbar"></div>
+
+  <!-- ══ HERO ══════════════════════════════════════════════════ -->
+  <header class="hero-legal" aria-label="En-tête de la page mentions légales">
+    <div class="container">
+      <span class="eyebrow">Transparence &amp; conformité</span>
+      <h1>Mentions légales<br>et politique de confidentialité</h1>
+      <p>
+        Ces informations sont mises à disposition conformément aux obligations légales
+        applicables en France (loi du 21 juin 2004 pour la confiance dans l'économie
+        numérique et Règlement RGPD 2016/679).
+      </p>
+      <span class="update-badge">
+        Dernière mise à jour : mai 2025
+      </span>
+    </div>
+  </header>
+
+  <!-- ══ CONTENU ════════════════════════════════════════════════ -->
+  <main id="main-content">
+    <section class="section">
+      <div class="container">
+        <div class="legal-layout">
+
+          <!-- ── Sommaire ─────────────────────────────────── -->
+          <aside aria-label="Sommaire de la page">
+            <nav class="legal-toc">
+              <p class="legal-toc-title">Sommaire</p>
+              <ul class="legal-toc-list" role="list">
+                <li><a href="#informations-legales"    class="legal-toc-link">1. Informations légales</a></li>
+                <li><a href="#hebergement"             class="legal-toc-link">2. Hébergement</a></li>
+                <li><a href="#propriete-intellectuelle" class="legal-toc-link">3. Propriété intellectuelle</a></li>
+                <li><a href="#donnees-personnelles"    class="legal-toc-link">4. Données personnelles</a></li>
+                <li><a href="#vos-droits"              class="legal-toc-link">5. Vos droits</a></li>
+                <li><a href="#cookies"                 class="legal-toc-link">6. Cookies</a></li>
+                <li><a href="#securite"                class="legal-toc-link">7. Sécurité</a></li>
+                <li><a href="#contact-dpo"             class="legal-toc-link">8. Nous contacter</a></li>
+              </ul>
+            </nav>
+          </aside>
+
+          <!-- ── Corps du texte ───────────────────────────── -->
+          <div>
+
+            <!-- ════ 1. INFORMATIONS LÉGALES ════ -->
+            <article class="legal-section" id="informations-legales">
+              <div class="legal-section-header">
+                <span class="legal-section-num" aria-hidden="true">1</span>
+                <h2 class="legal-section-title">Informations légales</h2>
+              </div>
+
+              <div class="legal-block">
+                <h3 class="legal-block-title">Éditeur du site</h3>
+                <div class="legal-infobox">
+                  <p>
+                    <strong>CFA Lumière</strong>
+                    Statut juridique : <span class="placeholder">[Association / SAS / SARL — à compléter]</span><br>
+                    Adresse du siège : 12 rue de la Lumière, 75011 Paris<br>
+                    SIRET : <span class="placeholder">[Numéro SIRET — à compléter]</span><br>
+                    Numéro de déclaration d'activité (NDA) : <span class="placeholder">[11 75 XXXXX 75 — à compléter]</span><br>
+                    Certification Qualiopi : <span class="placeholder">[Numéro de certificat — à compléter]</span>
+                  </p>
+                </div>
+              </div>
+
+              <div class="legal-block">
+                <h3 class="legal-block-title">Responsable de publication</h3>
+                <p class="legal-p">
+                  Le responsable de la publication du site est le directeur de CFA Lumière.
+                </p>
+                <div class="legal-infobox">
+                  <p>
+                    <strong>Contact</strong>
+                    Téléphone : 01 23 45 67 89<br>
+                    Email : contact@cfa-lumiere.fr<br>
+                    Horaires : lundi – vendredi, 9h00 – 17h30
+                  </p>
+                </div>
+              </div>
+            </article>
+
+
+            <!-- ════ 2. HÉBERGEMENT ════ -->
+            <article class="legal-section" id="hebergement">
+              <div class="legal-section-header">
+                <span class="legal-section-num" aria-hidden="true">2</span>
+                <h2 class="legal-section-title">Hébergement</h2>
+              </div>
+
+              <p class="legal-p">
+                Le site <strong>cfa-lumiere.fr</strong> est hébergé par :
+              </p>
+              <div class="legal-infobox">
+                <p>
+                  <strong><span class="placeholder">[Nom de l'hébergeur — ex : OVHcloud, Netlify, Vercel…]</span></strong>
+                  Adresse : <span class="placeholder">[Adresse de l'hébergeur]</span><br>
+                  Téléphone : <span class="placeholder">[Numéro de contact]</span><br>
+                  Site web : <span class="placeholder">[URL de l'hébergeur]</span>
+                </p>
+              </div>
+              <p class="legal-p">
+                Les données sont stockées sur des serveurs situés
+                <span class="placeholder">[en France / dans l'Union Européenne — à préciser]</span>,
+                dans le respect du cadre réglementaire européen (RGPD).
+              </p>
+            </article>
+
+
+            <!-- ════ 3. PROPRIÉTÉ INTELLECTUELLE ════ -->
+            <article class="legal-section" id="propriete-intellectuelle">
+              <div class="legal-section-header">
+                <span class="legal-section-num" aria-hidden="true">3</span>
+                <h2 class="legal-section-title">Propriété intellectuelle</h2>
+              </div>
+
+              <div class="legal-block">
+                <h3 class="legal-block-title">Contenus du site</h3>
+                <p class="legal-p">
+                  L'ensemble des éléments du site — textes, images, graphismes, logo, icônes,
+                  vidéos, structure et code source — sont la propriété exclusive de
+                  <strong>CFA Lumière</strong> ou font l'objet d'une autorisation d'utilisation accordée à CFA Lumière.
+                </p>
+                <p class="legal-p">
+                  Toute reproduction, représentation, modification, diffusion ou exploitation
+                  de tout ou partie de ces éléments, sans autorisation écrite préalable de
+                  CFA Lumière, est strictement interdite et constituerait une contrefaçon
+                  sanctionnée par les articles <strong>L.335-2 et suivants du Code de la Propriété Intellectuelle</strong>.
+                </p>
+              </div>
+
+              <div class="legal-block">
+                <h3 class="legal-block-title">Liens hypertextes</h3>
+                <p class="legal-p">
+                  La mise en place de liens vers ce site est autorisée sans demande préalable,
+                  à condition que les pages liées ne soient pas intégrées à l'intérieur d'un
+                  cadre (frame) et que le lien ne présente pas CFA Lumière de manière erronée.
+                </p>
+                <p class="legal-p">
+                  CFA Lumière décline toute responsabilité quant au contenu des sites tiers
+                  vers lesquels ce site propose des liens.
+                </p>
+              </div>
+            </article>
+
+
+            <!-- ════ 4. DONNÉES PERSONNELLES ════ -->
+            <article class="legal-section" id="donnees-personnelles">
+              <div class="legal-section-header">
+                <span class="legal-section-num" aria-hidden="true">4</span>
+                <h2 class="legal-section-title">Données personnelles (RGPD)</h2>
+              </div>
+
+              <div class="legal-note" role="note">
+                <p>
+                  CFA Lumière s'engage à traiter vos données personnelles dans le strict respect
+                  du <strong>Règlement Général sur la Protection des Données (RGPD — UE 2016/679)</strong>
+                  et de la <strong>loi Informatique et Libertés du 6 janvier 1978 modifiée</strong>.
+                  CFA Lumière agit en qualité de <strong>responsable du traitement</strong>.
+                </p>
+              </div>
+
+              <div class="legal-block">
+                <h3 class="legal-block-title">Données collectées et finalités</h3>
+                <p class="legal-p">
+                  Les données personnelles collectées via ce site le sont uniquement à travers
+                  les formulaires de contact, de candidature et de demande de rappel.
+                  Aucune donnée n'est collectée de façon passive ou à votre insu.
+                </p>
+
+                <div class="legal-table-wrap">
+                  <table class="legal-table" aria-label="Tableau récapitulatif des données collectées">
+                    <thead>
+                      <tr>
+                        <th>Données collectées</th>
+                        <th>Finalité du traitement</th>
+                        <th>Base légale</th>
+                        <th>Durée de conservation</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Nom, prénom, téléphone, email</td>
+                        <td>Répondre aux demandes de contact et de rappel</td>
+                        <td>Consentement (soumission du formulaire)</td>
+                        <td>3 ans à compter du dernier contact</td>
+                      </tr>
+                      <tr>
+                        <td>Profil candidat (formation visée, niveau, disponibilité)</td>
+                        <td>Traitement des candidatures, pré-inscription</td>
+                        <td>Consentement</td>
+                        <td>3 ans à compter du dernier contact</td>
+                      </tr>
+                      <tr>
+                        <td>Données entreprise (raison sociale, secteur, effectif, interlocuteur)</td>
+                        <td>Suivi commercial et gestion des partenariats entreprises</td>
+                        <td>Intérêt légitime</td>
+                        <td>5 ans à compter du dernier contact</td>
+                      </tr>
+                      <tr>
+                        <td>Données de navigation (adresse IP, pages consultées)</td>
+                        <td>Bon fonctionnement technique du site, sécurité</td>
+                        <td>Intérêt légitime</td>
+                        <td>13 mois (logs serveur)</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="legal-block">
+                <h3 class="legal-block-title">Partage des données</h3>
+                <p class="legal-p">
+                  Vos données personnelles ne sont <strong>jamais vendues, louées ou cédées</strong> à des tiers à des fins commerciales.
+                </p>
+                <p class="legal-p">Elles peuvent être transmises uniquement dans les cas suivants :</p>
+                <ul class="legal-list">
+                  <li>Prestataires techniques agissant en sous-traitance (hébergeur, outil d'emailing), liés par des obligations de confidentialité strictes.</li>
+                  <li>Obligation légale ou réquisition d'une autorité compétente.</li>
+                </ul>
+                <p class="legal-p">
+                  Aucune donnée n'est transférée en dehors de l'Union Européenne.
+                </p>
+              </div>
+            </article>
+
+
+            <!-- ════ 5. VOS DROITS ════ -->
+            <article class="legal-section" id="vos-droits">
+              <div class="legal-section-header">
+                <span class="legal-section-num" aria-hidden="true">5</span>
+                <h2 class="legal-section-title">Vos droits sur vos données</h2>
+              </div>
+
+              <p class="legal-p">
+                Conformément au RGPD, vous disposez des droits suivants sur vos données personnelles,
+                que vous pouvez exercer à tout moment :
+              </p>
+
+              <div class="legal-block">
+                <ul class="legal-list">
+                  <li>
+                    <span><strong>Droit d'accès (art. 15)</strong> — vous pouvez demander à connaître
+                    les données que nous détenons vous concernant.</span>
+                  </li>
+                  <li>
+                    <span><strong>Droit de rectification (art. 16)</strong> — vous pouvez demander
+                    la correction de données inexactes ou incomplètes.</span>
+                  </li>
+                  <li>
+                    <span><strong>Droit à l'effacement (art. 17)</strong> — vous pouvez demander
+                    la suppression de vos données, sous réserve de nos obligations légales de conservation.</span>
+                  </li>
+                  <li>
+                    <span><strong>Droit à la limitation (art. 18)</strong> — vous pouvez demander
+                    la suspension temporaire d'un traitement vous concernant.</span>
+                  </li>
+                  <li>
+                    <span><strong>Droit d'opposition (art. 21)</strong> — vous pouvez vous opposer
+                    au traitement de vos données pour des raisons tenant à votre situation particulière.</span>
+                  </li>
+                  <li>
+                    <span><strong>Droit à la portabilité (art. 20)</strong> — vous pouvez recevoir
+                    vos données dans un format structuré et lisible par machine.</span>
+                  </li>
+                  <li>
+                    <span><strong>Droit de retirer votre consentement</strong> — à tout moment,
+                    sans que cela ne remette en cause les traitements effectués avant le retrait.</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="legal-block">
+                <h3 class="legal-block-title">Comment exercer vos droits</h3>
+                <p class="legal-p">
+                  Envoyez votre demande par email à <strong>contact@cfa-lumiere.fr</strong>
+                  en indiquant votre nom, prénom, et en joignant une copie d'une pièce d'identité
+                  (uniquement si nécessaire à la vérification de votre identité).
+                  Nous vous répondrons dans un délai maximum de <strong>30 jours</strong>.
+                </p>
+                <p class="legal-p">
+                  En cas de litige non résolu, vous pouvez introduire une réclamation auprès de la
+                  <strong>CNIL</strong> (Commission Nationale de l'Informatique et des Libertés) :
+                  <strong>cnil.fr</strong> — 3, place de Fontenoy, 75007 Paris.
+                </p>
+              </div>
+            </article>
+
+
+            <!-- ════ 6. COOKIES ════ -->
+            <article class="legal-section" id="cookies">
+              <div class="legal-section-header">
+                <span class="legal-section-num" aria-hidden="true">6</span>
+                <h2 class="legal-section-title">Cookies</h2>
+              </div>
+
+              <div class="legal-block">
+                <h3 class="legal-block-title">Ce qu'est un cookie</h3>
+                <p class="legal-p">
+                  Un cookie est un petit fichier texte déposé sur votre terminal (ordinateur, tablette, smartphone)
+                  lors de la consultation d'un site web. Il permet au site de mémoriser des informations
+                  sur votre visite.
+                </p>
+              </div>
+
+              <div class="legal-block">
+                <h3 class="legal-block-title">Cookies utilisés sur ce site</h3>
+
+                <div class="legal-note" role="note">
+                  <p>
+                    Ce site n'utilise <strong>aucun cookie publicitaire, aucun tracker tiers</strong>
+                    (Google Analytics, Meta Pixel, etc.), ni aucun outil de profilage comportemental.
+                    Seuls des cookies strictement nécessaires au fonctionnement technique sont déposés.
+                  </p>
+                </div>
+
+                <div class="legal-table-wrap">
+                  <table class="legal-table" aria-label="Tableau des cookies utilisés">
+                    <thead>
+                      <tr>
+                        <th>Type</th>
+                        <th>Finalité</th>
+                        <th>Durée</th>
+                        <th>Consentement requis</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Cookie de session technique</td>
+                        <td>Maintien de la navigation, formulaires</td>
+                        <td>Fin de session</td>
+                        <td>Non (strictement nécessaire)</td>
+                      </tr>
+                      <tr>
+                        <td>Cookie de préférences</td>
+                        <td>Mémorisation des choix de l'utilisateur</td>
+                        <td>12 mois</td>
+                        <td>Non (strictement nécessaire)</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <div class="legal-block">
+                <h3 class="legal-block-title">Gérer vos cookies</h3>
+                <p class="legal-p">
+                  Vous pouvez configurer votre navigateur pour refuser ou supprimer les cookies
+                  à tout moment. La désactivation des cookies strictement nécessaires peut
+                  affecter certaines fonctionnalités du site.
+                </p>
+                <ul class="legal-list">
+                  <li><strong>Chrome</strong> — Paramètres › Confidentialité et sécurité › Cookies</li>
+                  <li><strong>Firefox</strong> — Paramètres › Vie privée et sécurité</li>
+                  <li><strong>Safari</strong> — Préférences › Confidentialité</li>
+                  <li><strong>Edge</strong> — Paramètres › Cookies et autorisations de site</li>
+                </ul>
+              </div>
+            </article>
+
+
+            <!-- ════ 7. SÉCURITÉ ════ -->
+            <article class="legal-section" id="securite">
+              <div class="legal-section-header">
+                <span class="legal-section-num" aria-hidden="true">7</span>
+                <h2 class="legal-section-title">Sécurité des données</h2>
+              </div>
+
+              <p class="legal-p">
+                CFA Lumière met en œuvre des mesures techniques et organisationnelles appropriées
+                pour protéger vos données personnelles contre tout accès non autorisé, perte,
+                altération ou divulgation.
+              </p>
+
+              <ul class="legal-list">
+                <li>
+                  <span><strong>Chiffrement HTTPS</strong> — toutes les communications entre votre
+                  navigateur et le site sont chiffrées via un certificat SSL/TLS.</span>
+                </li>
+                <li>
+                  <span><strong>Accès restreint</strong> — seules les personnes habilitées au sein
+                  de CFA Lumière ont accès aux données collectées.</span>
+                </li>
+                <li>
+                  <span><strong>Hébergeur sécurisé</strong> — les données sont stockées chez un
+                  prestataire d'hébergement professionnel disposant de ses propres mesures de sécurité.</span>
+                </li>
+                <li>
+                  <span><strong>Minimisation des données</strong> — nous ne collectons que les données
+                  strictement nécessaires à la finalité déclarée.</span>
+                </li>
+              </ul>
+
+              <div class="legal-block">
+                <h3 class="legal-block-title">Signaler une faille de sécurité</h3>
+                <p class="legal-p">
+                  Si vous identifiez une vulnérabilité sur ce site, merci de nous le signaler
+                  immédiatement à <strong>contact@cfa-lumiere.fr</strong>.
+                  Nous nous engageons à traiter votre signalement sous 48 heures.
+                </p>
+              </div>
+            </article>
+
+
+            <!-- ════ 8. CONTACT DPO ════ -->
+            <article class="legal-section" id="contact-dpo">
+              <div class="legal-section-header">
+                <span class="legal-section-num" aria-hidden="true">8</span>
+                <h2 class="legal-section-title">Nous contacter</h2>
+              </div>
+
+              <p class="legal-p">
+                Pour toute question relative à cette politique de confidentialité,
+                à l'exercice de vos droits ou à l'utilisation de vos données personnelles,
+                contactez-nous :
+              </p>
+
+              <div class="legal-infobox">
+                <p>
+                  <strong>CFA Lumière — Référent protection des données</strong>
+                  Email : <strong>contact@cfa-lumiere.fr</strong><br>
+                  Courrier : CFA Lumière, 12 rue de la Lumière, 75011 Paris<br>
+                  Délai de réponse : <strong>30 jours maximum</strong> à compter de la réception de votre demande
+                </p>
+              </div>
+
+              <a href="contact.html" class="dpo-cta" aria-label="Accéder au formulaire de contact">
+                Envoyer un message via le formulaire de contact
+              </a>
+
+              <div class="legal-note" style="margin-top: var(--sp-6);" role="note">
+                <p>
+                  Si vous estimez que vos droits ne sont pas respectés après nous avoir contactés,
+                  vous pouvez adresser une réclamation à la <strong>CNIL</strong> :
+                  3 place de Fontenoy — TSA 80715 — 75334 Paris Cedex 07 — <strong>cnil.fr</strong>
+                </p>
+              </div>
+            </article>
+
+          </div><!-- /corps du texte -->
+        </div><!-- /legal-layout -->
+      </div><!-- /container -->
+    </section>
+  </main>
+
+  <div id="footer"></div>
+  <script src="js/main.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CFA Lumière — Contact et demande de préinscription</title>
+  <meta name="description"
+    content="Contactez CFA Lumière pour candidater, recruter un alternant ou engager un partenariat. Réponse sous 24h ouvrées." />
+  <link rel="stylesheet" href="styles/main.css" />
+  <link rel="icon" href="assets/images/favicon.jpg" type="image/jpeg" />
+
+  <style>
+    /* ── Styles spécifiques à la page Contact ────────────── */
+
+    /* Hero compact — pas de min-height 100dvh sur une page fonctionnelle */
+    .hero-contact {
+      min-height: 0;
+      padding: var(--sp-10) 0 var(--sp-9);
+    }
+
+    /* Layout 2 colonnes : formulaire + sidebar */
+    .contact-grid {
+      display: grid;
+      gap: var(--sp-10);
+      align-items: start;
+    }
+
+    @media (min-width: 1024px) {
+      .contact-grid {
+        grid-template-columns: 1fr 340px;
+      }
+    }
+
+    /* Sélecteur de profil — mis en valeur */
+    .profile-selector {
+      padding: var(--sp-5);
+      background: var(--color-bg-alt);
+      border-radius: var(--radius-l);
+      border: 1.5px solid var(--color-border);
+      margin-bottom: var(--sp-6);
+    }
+
+    .profile-selector .form-label {
+      font-size: var(--text-base);
+      margin-bottom: var(--sp-3);
+      display: block;
+    }
+
+    .profile-selector .form-control {
+      background: var(--color-surface);
+    }
+
+    /* Séparateur de section dans le formulaire */
+    .form-section-sep {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-3);
+      margin: var(--sp-6) 0 var(--sp-5);
+    }
+
+    .form-section-sep-line {
+      flex: 1;
+      height: 1px;
+      background: var(--color-border);
+    }
+
+    .form-section-sep-label {
+      font-size: var(--text-xs);
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      white-space: nowrap;
+    }
+
+    /* Groupe de champs conditionnels */
+    .profile-fields {
+      display: none;
+    }
+
+    .profile-fields.is-visible {
+      display: block;
+      animation: fadeIn 0.25s ease both;
+    }
+
+    /* Grille 2 colonnes dans le formulaire */
+    .form-grid-2 {
+      display: grid;
+      gap: var(--sp-4);
+      grid-template-columns: 1fr;
+    }
+
+    @media (min-width: 580px) {
+      .form-grid-2 {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    /* Sidebar */
+    .sidebar-sticky {
+      position: sticky;
+      top: calc(var(--navbar-height) + var(--sp-5));
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-5);
+    }
+
+    /* Carte info de contact */
+    .info-block {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-l);
+      padding: var(--sp-6);
+      box-shadow: var(--shadow-s);
+    }
+
+    .info-block-title {
+      font-family: var(--font-heading);
+      font-size: var(--text-base);
+      font-weight: 500;
+      color: var(--color-primary-dk);
+      margin-bottom: var(--sp-5);
+      padding-bottom: var(--sp-4);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    /* Item de contact individuel */
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--sp-3);
+      padding: var(--sp-3) 0;
+    }
+
+    .contact-item + .contact-item {
+      border-top: 1px solid var(--color-border);
+    }
+
+    .contact-item-label {
+      font-size: var(--text-xs);
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      margin-bottom: var(--sp-1);
+    }
+
+    .contact-item-value {
+      font-size: var(--text-sm);
+      color: var(--color-primary-dk);
+      font-weight: 500;
+      line-height: 1.5;
+    }
+
+    .contact-item-value a {
+      color: inherit;
+      transition: color var(--t-fast) ease;
+    }
+
+    .contact-item-value a:hover {
+      color: var(--color-primary);
+    }
+
+    /* Carte rendez-vous */
+    .rdv-card {
+      background: var(--color-primary-dk);
+      border-radius: var(--radius-l);
+      padding: var(--sp-6);
+      color: var(--color-text-inv);
+    }
+
+    .rdv-card h3 {
+      color: var(--color-text-inv);
+      font-size: var(--text-base);
+      margin-bottom: var(--sp-3);
+    }
+
+    .rdv-card p {
+      font-size: var(--text-sm);
+      color: rgba(255,255,255,0.68);
+      line-height: 1.6;
+      margin-bottom: var(--sp-5);
+    }
+
+    /* LinkedIn */
+    .linkedin-block {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-3);
+      padding: var(--sp-4) var(--sp-5);
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-l);
+      color: var(--color-primary-dk);
+      font-size: var(--text-sm);
+      font-weight: 500;
+      transition: background var(--t-fast) ease, border-color var(--t-fast) ease;
+      text-decoration: none;
+    }
+
+    .linkedin-block:hover {
+      background: var(--color-bg-alt);
+      border-color: var(--color-primary);
+    }
+
+    /* Indicateur de succès après envoi */
+    .form-success-banner {
+      display: none;
+      padding: var(--sp-6);
+      background: rgba(26,107,60,0.07);
+      border: 1px solid rgba(26,107,60,0.22);
+      border-radius: var(--radius-l);
+      color: var(--color-success);
+      text-align: center;
+    }
+
+    /* ── Image de fond du hero contact ── */
+    .hero-contact {
+      background:
+        linear-gradient(160deg, rgba(241,246,244,0.85) 40%, rgba(217,232,227,0.90) 100%),
+        url('https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1920&q=80') center / cover no-repeat;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="navbar"></div>
+
+  <main id="main-content">
+
+    <!-- ══════════════════════════════════════════════════
+         1. HERO COMPACT
+         Page fonctionnelle — pas de plein écran marketing
+         ══════════════════════════════════════════════════ -->
+    <section class="hero hero-light hero-contact"
+             aria-labelledby="hero-heading">
+      <div class="container">
+        <div class="hero-content" style="max-width:60ch;">
+
+          <span class="eyebrow hero-eyebrow anim-fade-in">
+            Contact &amp; Préinscription
+          </span>
+
+          <h1 id="hero-heading" class="hero-title anim-fade-up anim-delay-1"
+              style="font-size: clamp(1.75rem, 4vw, 2.75rem);">
+            Contactez-nous ou faites une demande de préinscription
+          </h1>
+
+          <p class="hero-desc anim-fade-up anim-delay-2"
+             style="font-size:var(--text-base); margin-bottom:var(--sp-6);">
+            Entreprise, candidat ou partenaire — un conseiller vous répond
+            personnellement sous 24 heures ouvrées.
+          </p>
+
+          <a href="#form-contact"
+             class="btn btn-primary anim-fade-up anim-delay-3">
+            Être rappelé
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ══════════════════════════════════════════════════
+         LAYOUT PRINCIPAL : formulaire + sidebar
+         ══════════════════════════════════════════════════ -->
+    <section class="section">
+      <div class="container">
+        <div class="contact-grid">
+
+
+          <!-- ── COLONNE PRINCIPALE : formulaire adaptatif ── -->
+          <div>
+
+            <!-- Bandeau d'aide à la navigation du formulaire -->
+            <div class="alert alert-info" style="margin-bottom:var(--sp-6);">
+              <span>
+                Indiquez d'abord votre profil — le formulaire s'adapte
+                automatiquement à votre situation.
+              </span>
+            </div>
+
+            <!-- 2. FORMULAIRE PRINCIPAL ───────────────────── -->
+            <form class="contact-form" id="form-contact"
+                  novalidate
+                  aria-label="Formulaire de contact et de préinscription">
+
+              <!-- ─ Sélecteur de profil ─────────────────── -->
+              <div class="profile-selector">
+                <label class="form-label" for="ct-profile">
+                  Je suis
+                  <span class="req" aria-hidden="true">*</span>
+                </label>
+                <select class="form-control" id="ct-profile"
+                        name="profile" required
+                        aria-describedby="profile-hint">
+                  <option value="" disabled selected>
+                    Choisissez votre profil...
+                  </option>
+                  <option value="entreprise">Une entreprise</option>
+                  <option value="candidat">Un candidat</option>
+                  <option value="partenaire">Un partenaire ou institution</option>
+                  <option value="autre">Autre demande</option>
+                </select>
+                <p id="profile-hint" class="form-hint" style="margin-top:var(--sp-2);">
+                  Ce choix détermine les champs affichés dans la suite du formulaire.
+                </p>
+              </div>
+
+              <!-- ─ Champs communs ──────────────────────── -->
+              <div class="form-grid-2" style="margin-bottom:var(--sp-4);">
+                <div class="form-field">
+                  <label class="form-label" for="ct-firstname">
+                    Prénom <span class="req" aria-hidden="true">*</span>
+                  </label>
+                  <input class="form-control" id="ct-firstname" name="firstname"
+                         type="text" placeholder="Jean"
+                         autocomplete="given-name" required />
+                </div>
+                <div class="form-field">
+                  <label class="form-label" for="ct-lastname">
+                    Nom <span class="req" aria-hidden="true">*</span>
+                  </label>
+                  <input class="form-control" id="ct-lastname" name="lastname"
+                         type="text" placeholder="Dupont"
+                         autocomplete="family-name" required />
+                </div>
+              </div>
+
+              <div class="form-grid-2" style="margin-bottom:var(--sp-4);">
+                <div class="form-field">
+                  <label class="form-label" for="ct-phone">
+                    Téléphone <span class="req" aria-hidden="true">*</span>
+                  </label>
+                  <input class="form-control" id="ct-phone" name="phone"
+                         type="tel" placeholder="06 00 00 00 00"
+                         autocomplete="tel" required />
+                </div>
+                <div class="form-field">
+                  <label class="form-label" for="ct-email">
+                    Email <span class="req" aria-hidden="true">*</span>
+                  </label>
+                  <input class="form-control" id="ct-email" name="email"
+                         type="email" placeholder="jean@exemple.fr"
+                         autocomplete="email" required />
+                </div>
+              </div>
+
+
+              <!-- ─ Champs conditionnels : ENTREPRISE ──── -->
+              <div class="profile-fields" id="fields-entreprise"
+                   aria-live="polite">
+                <div class="form-section-sep" aria-hidden="true">
+                  <span class="form-section-sep-line"></span>
+                  <span class="form-section-sep-label">Votre entreprise</span>
+                  <span class="form-section-sep-line"></span>
+                </div>
+
+                <div class="form-grid-2" style="margin-bottom:var(--sp-4);">
+                  <div class="form-field">
+                    <label class="form-label" for="ent-company">
+                      Nom de l'entreprise
+                      <span class="req" aria-hidden="true">*</span>
+                    </label>
+                    <input class="form-control" id="ent-company" name="company"
+                           type="text" placeholder="Nom de votre entreprise"
+                           autocomplete="organization" />
+                  </div>
+                  <div class="form-field">
+                    <label class="form-label" for="ent-role">Votre fonction</label>
+                    <input class="form-control" id="ent-role" name="role"
+                           type="text" placeholder="DRH, Dirigeant..."
+                           autocomplete="organization-title" />
+                  </div>
+                </div>
+
+                <div class="form-grid-2" style="margin-bottom:var(--sp-4);">
+                  <div class="form-field">
+                    <label class="form-label" for="ent-sector">
+                      Secteur d'activité
+                    </label>
+                    <select class="form-control" id="ent-sector" name="sector">
+                      <option value="" disabled selected>Votre secteur</option>
+                      <option value="electricite">Électricité / Génie électrique</option>
+                      <option value="cvc-froid">CVC / Climatisation / Froid</option>
+                      <option value="maintenance">Maintenance industrielle</option>
+                      <option value="btp">Bâtiment / BTP</option>
+                      <option value="datacenter">Data centers / Infrastructure IT</option>
+                      <option value="industrie">Industrie / Production</option>
+                      <option value="autre">Autre</option>
+                    </select>
+                  </div>
+                  <div class="form-field">
+                    <label class="form-label" for="ent-objet">
+                      Objet de la demande
+                    </label>
+                    <select class="form-control" id="ent-objet" name="objet">
+                      <option value="" disabled selected>Choisir</option>
+                      <option value="recruter">Recruter un ou plusieurs alternants</option>
+                      <option value="infos">Obtenir des informations</option>
+                      <option value="partenariat">Devenir partenaire institutionnel</option>
+                      <option value="autre">Autre</option>
+                    </select>
+                  </div>
+                </div>
+              </div><!-- /fields-entreprise -->
+
+
+              <!-- ─ Champs conditionnels : CANDIDAT ───── -->
+              <div class="profile-fields" id="fields-candidat"
+                   aria-live="polite">
+                <div class="form-section-sep" aria-hidden="true">
+                  <span class="form-section-sep-line"></span>
+                  <span class="form-section-sep-label">Votre projet de formation</span>
+                  <span class="form-section-sep-line"></span>
+                </div>
+
+                <div class="form-grid-2" style="margin-bottom:var(--sp-4);">
+                  <div class="form-field">
+                    <label class="form-label" for="cand-formation">
+                      Formation souhaitée
+                    </label>
+                    <select class="form-control" id="cand-formation"
+                            name="formation">
+                      <option value="" disabled selected>Choisir</option>
+                      <option value="electricite">TP Électricien(ne)</option>
+                      <option value="cvc-froid">TP Technicien(ne) CVC / Froid</option>
+                      <option value="indecis">Je ne sais pas encore</option>
+                    </select>
+                  </div>
+                  <div class="form-field">
+                    <label class="form-label" for="cand-dispo">
+                      Disponibilité
+                    </label>
+                    <select class="form-control" id="cand-dispo" name="dispo">
+                      <option value="" disabled selected>Quand ?</option>
+                      <option value="maintenant">Dès maintenant</option>
+                      <option value="sept-2025">Septembre 2025</option>
+                      <option value="jan-2026">Janvier 2026</option>
+                      <option value="plus-tard">Plus tard</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-field" style="margin-bottom:var(--sp-4);">
+                  <label class="form-label" for="cand-objet">
+                    Objet de la demande
+                  </label>
+                  <select class="form-control" id="cand-objet" name="objet">
+                    <option value="" disabled selected>Choisir</option>
+                    <option value="candidater">Candidater à une formation</option>
+                    <option value="preinscription">Préinscription avant rentrée</option>
+                    <option value="reunion">S'inscrire à la réunion d'information</option>
+                    <option value="infos">Obtenir des informations</option>
+                  </select>
+                </div>
+              </div><!-- /fields-candidat -->
+
+
+              <!-- ─ Champs conditionnels : PARTENAIRE ── -->
+              <div class="profile-fields" id="fields-partenaire"
+                   aria-live="polite">
+                <div class="form-section-sep" aria-hidden="true">
+                  <span class="form-section-sep-line"></span>
+                  <span class="form-section-sep-label">Votre organisation</span>
+                  <span class="form-section-sep-line"></span>
+                </div>
+
+                <div class="form-grid-2" style="margin-bottom:var(--sp-4);">
+                  <div class="form-field">
+                    <label class="form-label" for="part-org">
+                      Nom de l'organisation
+                    </label>
+                    <input class="form-control" id="part-org" name="organisation"
+                           type="text" placeholder="Nom de votre structure"
+                           autocomplete="organization" />
+                  </div>
+                  <div class="form-field">
+                    <label class="form-label" for="part-type">
+                      Nature du partenariat
+                    </label>
+                    <select class="form-control" id="part-type" name="partnership">
+                      <option value="" disabled selected>Choisir</option>
+                      <option value="pedagogique">Partenariat pédagogique</option>
+                      <option value="institutionnel">Partenariat institutionnel</option>
+                      <option value="convention">Convention d'alternance</option>
+                      <option value="autre">Autre</option>
+                    </select>
+                  </div>
+                </div>
+              </div><!-- /fields-partenaire -->
+
+
+              <!-- ─ Champs conditionnels : AUTRE ───────── -->
+              <div class="profile-fields" id="fields-autre"
+                   aria-live="polite">
+                <div class="form-section-sep" aria-hidden="true">
+                  <span class="form-section-sep-line"></span>
+                  <span class="form-section-sep-label">Votre demande</span>
+                  <span class="form-section-sep-line"></span>
+                </div>
+
+                <div class="form-field" style="margin-bottom:var(--sp-4);">
+                  <label class="form-label" for="autre-objet">
+                    Objet de la demande
+                  </label>
+                  <input class="form-control" id="autre-objet" name="objet"
+                         type="text"
+                         placeholder="Précisez brièvement l'objet de votre contact" />
+                </div>
+              </div><!-- /fields-autre -->
+
+
+              <!-- ─ Message (toujours visible) ──────────── -->
+              <div class="form-field" style="margin-top:var(--sp-2);">
+                <label class="form-label" for="ct-message">
+                  Message
+                  <span class="text-xs text-muted" style="font-weight:400;">
+                    (facultatif)
+                  </span>
+                </label>
+                <textarea class="form-control" id="ct-message" name="message"
+                          rows="5"
+                          placeholder="Précisez votre demande, vos contraintes, votre contexte...">
+                </textarea>
+              </div>
+
+              <!-- ─ CTA + confirmation RGPD ──────────── -->
+              <div style="margin-top:var(--sp-6);">
+                <button type="submit"
+                        class="btn btn-primary btn-full btn-lg">
+                  Envoyer ma demande
+                </button>
+                <p class="text-xs text-muted"
+                   style="text-align:center; margin-top:var(--sp-3); line-height:1.5;">
+                  Données traitées conformément au RGPD.
+                  Aucun démarchage sans votre accord préalable.
+                </p>
+              </div>
+
+              <!-- Message de succès (affiché après envoi par JS) -->
+              <div class="alert alert-success form-success-banner"
+                   id="form-success" role="alert" aria-live="polite">
+                <div>
+                  <strong style="display:block; margin-bottom:var(--sp-1);">
+                    Demande envoyée
+                  </strong>
+                  Un conseiller vous contacte sous 24 heures ouvrées.
+                </div>
+              </div>
+
+            </form><!-- /contact-form -->
+
+          </div><!-- /colonne formulaire -->
+
+
+          <!-- ── SIDEBAR : coordonnées + rendez-vous ──── -->
+          <aside class="sidebar-sticky" aria-label="Informations de contact">
+
+
+            <!-- 4. COORDONNÉES ───────────────────────────── -->
+            <div class="info-block">
+              <p class="info-block-title">Nos coordonnées</p>
+
+              <div class="contact-item">
+                <div>
+                  <p class="contact-item-label">Téléphone</p>
+                  <p class="contact-item-value">
+                    <a href="tel:+33123456789">01 23 45 67 89</a>
+                  </p>
+                </div>
+              </div>
+
+              <div class="contact-item">
+                <div>
+                  <p class="contact-item-label">Email</p>
+                  <p class="contact-item-value">
+                    <a href="mailto:contact@cfalumiere.fr">
+                      contact@cfalumiere.fr
+                    </a>
+                  </p>
+                </div>
+              </div>
+
+              <div class="contact-item">
+                <div>
+                  <p class="contact-item-label">Adresse</p>
+                  <p class="contact-item-value">
+                    12 rue de la Lumière<br />
+                    75000 Paris
+                  </p>
+                </div>
+              </div>
+
+              <div class="contact-item">
+                <div>
+                  <p class="contact-item-label">Horaires</p>
+                  <p class="contact-item-value">
+                    Lun – Ven : 9h00 – 18h00<br />
+                    <span style="color:var(--color-text-muted); font-size:var(--text-xs);">
+                      Fermé les jours fériés
+                    </span>
+                  </p>
+                </div>
+              </div>
+
+            </div><!-- /info-block -->
+
+
+            <!-- 5. BLOC RENDEZ-VOUS ─────────────────────── -->
+            <div class="rdv-card">
+              <h3>Planifier un échange</h3>
+              <p>
+                Besoin de parler directement à un conseiller ?
+                Laissez vos disponibilités et nous organisons
+                un appel de 20 minutes à votre convenance.
+              </p>
+              <button
+                class="btn btn-primary btn-full"
+                data-rdv-trigger
+                type="button"
+                aria-label="Pré-remplir le formulaire pour planifier un échange"
+              >
+                Planifier un échange de 20 min
+              </button>
+            </div><!-- /rdv-card -->
+
+
+            <!-- 6. LINKEDIN ──────────────────────────────── -->
+            <a href="https://linkedin.com/company/cfa-lumiere"
+               class="linkedin-block"
+               target="_blank"
+               rel="noopener noreferrer"
+               aria-label="Suivre CFA Lumière sur LinkedIn (ouvre un nouvel onglet)">
+
+              <div>
+                <span style="display:block; font-size:var(--text-xs);
+                             color:var(--color-text-muted); margin-bottom:2px;">
+                  Réseaux sociaux
+                </span>
+                Suivre CFA Lumière sur LinkedIn
+              </div>
+
+            </a><!-- /linkedin-block -->
+
+          </aside><!-- /sidebar -->
+
+        </div><!-- /contact-grid -->
+      </div>
+    </section>
+
+  </main>
+
+  <div id="footer"></div>
+  <script src="js/main.js"></script>
+
+  <!-- ══════════════════════════════════════════════════
+       3. LOGIQUE UX : formulaire adaptatif
+       Affichage conditionnel des champs selon le profil
+       Inline pour isolation — pas de dépendance externe
+       ══════════════════════════════════════════════════ -->
+  <script>
+    (function () {
+      'use strict';
+
+      var profileSelect  = document.getElementById('ct-profile');
+      var messageField   = document.getElementById('ct-message');
+      var allGroups      = document.querySelectorAll('.profile-fields');
+      var formSuccess    = document.getElementById('form-success');
+      var contactForm    = document.getElementById('form-contact');
+
+      if (!profileSelect) return;
+
+      // ── Affichage conditionnel selon le profil ──────────
+
+      var REQUIRED_FIELDS = {
+        entreprise: ['ent-company'],
+        candidat:   [],
+        partenaire: [],
+        autre:      []
+      };
+
+      function hideAllGroups() {
+        allGroups.forEach(function (group) {
+          group.classList.remove('is-visible');
+          // Désactiver les required pour ne pas bloquer l'envoi
+          group.querySelectorAll('input, select, textarea').forEach(function (f) {
+            f.required = false;
+          });
+        });
+      }
+
+      function showGroup(profileValue) {
+        var group = document.getElementById('fields-' + profileValue);
+        if (!group) return;
+
+        group.classList.add('is-visible');
+
+        // Réactiver les required spécifiques au profil
+        var requiredIds = REQUIRED_FIELDS[profileValue] || [];
+        requiredIds.forEach(function (id) {
+          var field = document.getElementById(id);
+          if (field) field.required = true;
+        });
+      }
+
+      profileSelect.addEventListener('change', function () {
+        hideAllGroups();
+        if (this.value) showGroup(this.value);
+      });
+
+
+      // ── Bouton "Planifier un échange de 20 min" ─────────
+
+      var rdvBtn = document.querySelector('[data-rdv-trigger]');
+
+      if (rdvBtn && messageField) {
+        rdvBtn.addEventListener('click', function () {
+          // Pré-remplir le message
+          if (!messageField.value) {
+            messageField.value =
+              'Je souhaite planifier un échange de 20 minutes.\n' +
+              'Mes disponibilités : ';
+          }
+
+          // Scrolle vers le formulaire et focus le textarea
+          var formEl = document.getElementById('form-contact');
+          if (formEl) {
+            formEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+
+          // Focus différé pour laisser le scroll se terminer
+          setTimeout(function () {
+            messageField.focus();
+            // Placer le curseur à la fin du texte pré-rempli
+            var len = messageField.value.length;
+            messageField.setSelectionRange(len, len);
+          }, 450);
+        });
+      }
+
+
+      // ── Succès d'envoi : remplace le formulaire ─────────
+      // Le handler principal est dans main.js (délégation sur document).
+      // On observe l'ajout de la classe de succès via un MutationObserver
+      // pour afficher le bandeau sans modifier main.js.
+
+      if (contactForm && formSuccess) {
+        var observer = new MutationObserver(function () {
+          // main.js réinitialise le formulaire après envoi
+          // On se base sur le fait que le bouton redevient actif
+          // et que le formulaire est réinitialisé (values = '')
+        });
+
+        // Approche directe : écoute le submit et affiche le succès
+        // après la gestion de main.js (setTimeout légèrement supérieur)
+        contactForm.addEventListener('submit', function () {
+          setTimeout(function () {
+            // Si le formulaire a été réinitialisé (signe de succès)
+            if (profileSelect.value === '') {
+              formSuccess.style.display = 'flex';
+              formSuccess.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+              setTimeout(function () {
+                formSuccess.style.display = 'none';
+              }, 8000);
+            }
+          }, 1100); // légèrement après le délai de main.js (800ms)
+        });
+      }
+
+    })();
+  </script>
+
+</body>
+</html>

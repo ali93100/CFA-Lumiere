@@ -1,0 +1,80 @@
+<section class="section section-quiet">
+  <div class="container">
+
+    <div class="section-header">
+      <h2>Contactez-nous</h2>
+      <p class="lead">Notre équipe vous répond sous 48 heures ouvrées.</p>
+    </div>
+
+    <form
+      class="contact-form stack stack-6"
+      style="max-width:560px"
+      novalidate
+      aria-label="Formulaire de contact"
+    >
+
+      <div class="form-field">
+        <label class="form-label" for="contact-name">
+          Nom complet <span class="req" aria-hidden="true">*</span>
+        </label>
+        <input
+          class="form-control"
+          id="contact-name"
+          name="name"
+          type="text"
+          placeholder="Jean Dupont"
+          autocomplete="name"
+          required
+        />
+      </div>
+
+      <div class="form-field">
+        <label class="form-label" for="contact-email">
+          Adresse email <span class="req" aria-hidden="true">*</span>
+        </label>
+        <input
+          class="form-control"
+          id="contact-email"
+          name="email"
+          type="email"
+          placeholder="jean.dupont@example.com"
+          autocomplete="email"
+          required
+        />
+        <span class="form-hint">Nous ne partageons jamais vos données.</span>
+      </div>
+
+      <div class="form-field">
+        <label class="form-label" for="contact-profile">Vous êtes</label>
+        <select class="form-control" id="contact-profile" name="profile">
+          <option value="" disabled selected>Choisir une option</option>
+          <option value="candidat">Candidat en recherche de formation</option>
+          <option value="entreprise">Entreprise partenaire</option>
+          <option value="autre">Autre</option>
+        </select>
+      </div>
+
+      <div class="form-field">
+        <label class="form-label" for="contact-message">
+          Message <span class="req" aria-hidden="true">*</span>
+        </label>
+        <textarea
+          class="form-control"
+          id="contact-message"
+          name="message"
+          rows="5"
+          placeholder="Comment pouvons-nous vous aider ?"
+          required
+        ></textarea>
+      </div>
+
+      <div>
+        <button type="submit" class="btn btn-primary btn-full btn-lg">
+          Envoyer le message
+        </button>
+      </div>
+
+    </form>
+
+  </div>
+</section>

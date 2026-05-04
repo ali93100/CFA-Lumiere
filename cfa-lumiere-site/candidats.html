@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CFA Lumière — Forme-toi à un métier technique recherché | Candidats</title>
+  <meta name="description"
+    content="Deviens électricien ou technicien CVC/froid en alternance. Formation gratuite, rémunérée, avec un titre reconnu par l'État. Candidature en 2 minutes." />
+  <link rel="stylesheet" href="styles/main.css" />
+  <link rel="icon" href="assets/images/favicon.jpg" type="image/jpeg" />
+
+  <style>
+    /* ── Styles spécifiques à la page Candidats ──────────── */
+
+    /* Layout principal : contenu gauche + formulaire droit */
+    .cand-grid {
+      display: grid;
+      gap: var(--sp-10);
+      align-items: start;
+    }
+
+    @media (min-width: 1024px) {
+      .cand-grid {
+        grid-template-columns: 1fr 400px;
+      }
+    }
+
+    /* Formulaire collant sur desktop */
+    .form-sticky {
+      position: sticky;
+      top: calc(var(--navbar-height) + var(--sp-6));
+    }
+
+    /* Séparateurs de blocs dans la colonne gauche */
+    .content-block {
+      padding-bottom: var(--sp-9);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .content-block:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .content-block + .content-block {
+      padding-top: var(--sp-9);
+    }
+
+    /* En-tête de bloc */
+    .block-heading {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-3);
+      margin-bottom: var(--sp-6);
+    }
+
+    /* Avantage individuel : icône + texte */
+    .avantage-item {
+      display: flex;
+      gap: var(--sp-4);
+      align-items: flex-start;
+    }
+
+    /* Card parcours enrichie */
+    .parcours-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-l);
+      padding: var(--sp-6);
+      box-shadow: var(--shadow-s);
+    }
+
+    .parcours-card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: var(--sp-4);
+      margin-bottom: var(--sp-4);
+    }
+
+    .parcours-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--sp-4);
+      margin: var(--sp-4) 0 var(--sp-5);
+      padding: var(--sp-4) 0;
+      border-top: 1px solid var(--color-border);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .parcours-meta-item {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-2);
+      font-size: var(--text-xs);
+      color: var(--color-text-muted);
+      font-weight: 500;
+    }
+
+    /* Prérequis : liste sans pression */
+    .prereq-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-4);
+    }
+
+    .prereq-item {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--sp-3);
+      padding: var(--sp-4);
+      background: var(--color-bg-alt);
+      border-radius: var(--radius-m);
+    }
+
+    /* Débouché : card avec tag secteur + salaire */
+    .debouche-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-l);
+      padding: var(--sp-5);
+      box-shadow: var(--shadow-s);
+    }
+
+    .debouche-card h4 {
+      margin-bottom: var(--sp-2);
+    }
+
+    .debouche-salaire {
+      display: inline-block;
+      margin-top: var(--sp-3);
+      font-size: var(--text-xs);
+      font-weight: 700;
+      color: var(--color-primary);
+      background: var(--color-accent-bg);
+      padding: var(--sp-1) var(--sp-3);
+      border-radius: var(--radius-pill);
+    }
+
+    /* Bande de rassurance rapide sous les CTA du hero */
+    .hero-trust-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--sp-2) var(--sp-5);
+      margin-top: var(--sp-6);
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-2);
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+      font-weight: 500;
+    }
+
+    .trust-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--color-accent);
+      flex-shrink: 0;
+    }
+
+    /* Grille 2×2 pour les avantages */
+    .avantages-grid {
+      display: grid;
+      gap: var(--sp-6);
+      grid-template-columns: 1fr;
+    }
+
+    @media (min-width: 640px) {
+      .avantages-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    /* Grille 2×2 pour les débouchés */
+    .debouches-grid {
+      display: grid;
+      gap: var(--sp-4);
+      grid-template-columns: 1fr 1fr;
+    }
+
+    /* Section réunion d'info : card en fond contrasté */
+    .reunion-card {
+      background: var(--color-surface);
+      border-radius: var(--radius-l);
+      padding: var(--sp-7) var(--sp-8);
+      box-shadow: var(--shadow-l);
+      max-width: 640px;
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    /* Formulaire — grille interne 2 colonnes */
+    .form-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--sp-4);
+    }
+
+    @media (min-width: 480px) {
+      .form-grid-2 {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    /* Remontée du formulaire sur mobile (après le hero) */
+    .form-mobile-anchor {
+      display: block;
+    }
+
+    @media (min-width: 1024px) {
+      .form-mobile-anchor {
+        display: none;
+      }
+    }
+
+    /* Stats de preuve : ligne horizontale */
+    .stats-strip {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--sp-5);
+    }
+
+    @media (min-width: 640px) {
+      .stats-strip {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    /* ── Image de fond du hero candidats ── */
+    .hero-light {
+      background:
+        linear-gradient(160deg, rgba(241,246,244,0.80) 40%, rgba(217,232,227,0.86) 100%),
+        url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1920&q=80') center / cover no-repeat;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="navbar"></div>
+
+  <main id="main-content">
+
+    <!-- ══════════════════════════════════════════════════
+         1. HERO
+         Ton direct et humain — hero-light pour accueillir
+         Différenciation visuelle immédiate vs. page Entreprises
+         ══════════════════════════════════════════════════ -->
+    <section class="hero hero-light" aria-labelledby="hero-heading">
+      <div class="container">
+        <div class="hero-content">
+
+          <span class="eyebrow hero-eyebrow anim-fade-in">
+            Formation en alternance
+          </span>
+
+          <h1 id="hero-heading" class="hero-title anim-fade-up anim-delay-1">
+            Forme-toi à un métier technique recherché
+          </h1>
+
+          <p class="hero-desc anim-fade-up anim-delay-2">
+            Travaille en entreprise. Suis une formation. Sois payé.
+            Obtiens un titre reconnu par l'État — sans frais, sans détour.
+          </p>
+
+          <div class="hero-actions anim-fade-up anim-delay-3">
+            <a href="#form-candidat" class="btn btn-primary btn-lg">
+              Je candidate
+            </a>
+            <a href="#form-candidat" class="btn btn-outline btn-lg">
+              Être rappelé
+            </a>
+          </div>
+
+          <!-- Rassurance rapide : 3 points sous les CTAs -->
+          <div class="hero-trust-strip anim-fade-up anim-delay-4"
+               aria-label="Points clés de la formation">
+            <span class="trust-item">
+              <span class="trust-dot" aria-hidden="true"></span>
+              Formation 100% gratuite
+            </span>
+            <span class="trust-item">
+              <span class="trust-dot" aria-hidden="true"></span>
+              Rémunéré chaque mois
+            </span>
+            <span class="trust-item">
+              <span class="trust-dot" aria-hidden="true"></span>
+              Titre reconnu par l'État
+            </span>
+            <span class="trust-item">
+              <span class="trust-dot" aria-hidden="true"></span>
+              Emploi à la sortie
+            </span>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ══════════════════════════════════════════════════
+         LAYOUT PRINCIPAL : contenu gauche / formulaire droit
+         Le formulaire reste visible pendant la lecture (desktop)
+         ══════════════════════════════════════════════════ -->
+    <section class="section">
+      <div class="container">
+        <div class="cand-grid">
+
+
+          <!-- ── COLONNE GAUCHE : contenu ──────────────── -->
+          <div>
+
+
+            <!-- 2. MÉTIERS ACCESSIBLES ──────────────────── -->
+            <div class="content-block">
+              <div class="block-heading">
+                <span class="badge badge-neutral">Les métiers</span>
+                <h2 style="font-size: var(--text-xl); margin: 0;">
+                  Quel métier vous correspond ?
+                </h2>
+              </div>
+
+              <div class="grid-2" style="gap: var(--sp-5);">
+
+                <!-- Électricien -->
+                <div class="debouche-card">
+                  <h4 style="margin:0 0 var(--sp-4);">Électricien(ne)</h4>
+                  <p class="text-sm text-muted">
+                    Installez et raccordez des équipements électriques dans
+                    les bâtiments, les usines et les infrastructures.
+                    Un métier de terrain, concret, en forte demande.
+                  </p>
+                  <span class="debouche-salaire">
+                    Débutant : à partir de 1 800€ brut/mois
+                  </span>
+                </div>
+
+                <!-- Technicien CVC / Froid -->
+                <div class="debouche-card">
+                  <h4 style="margin:0 0 var(--sp-4);">Technicien(ne) CVC / Froid</h4>
+                  <p class="text-sm text-muted">
+                    Installez et entretenez les systèmes de climatisation,
+                    ventilation et froid dans les bâtiments et data centers.
+                    Secteur en pleine croissance.
+                  </p>
+                  <span class="debouche-salaire">
+                    Débutant : à partir de 1 900€ brut/mois
+                  </span>
+                </div>
+
+                <!-- Technicien maintenance -->
+                <div class="debouche-card">
+                  <h4 style="margin:0 0 var(--sp-4);">Technicien(ne) Maintenance</h4>
+                  <p class="text-sm text-muted">
+                    Assurez la continuité des équipements industriels
+                    et tertiaires. Diagnostic, réparation, prévention —
+                    un rôle central dans toute organisation.
+                  </p>
+                  <span class="debouche-salaire">
+                    Débutant : à partir de 1 750€ brut/mois
+                  </span>
+                </div>
+
+                <!-- Évolution : infrastructures critiques -->
+                <div class="debouche-card" style="border: 1.5px dashed var(--color-border);
+                             background: var(--color-bg-alt); box-shadow: none;">
+                  <h4 style="margin:0 0 var(--sp-4);">Évolution : Infrastructures critiques</h4>
+                  <p class="text-sm text-muted">
+                    Data centers, hôpitaux, aéroports — avec de l'expérience,
+                    vos compétences s'ouvrent aux environnements les plus exigeants
+                    et les mieux rémunérés du secteur.
+                  </p>
+                  <span class="debouche-salaire">
+                    Évolution : jusqu'à 3 000€+ brut/mois
+                  </span>
+                </div>
+
+              </div>
+            </div><!-- /métiers -->
+
+
+            <!-- 3. AVANTAGES DE L'ALTERNANCE ───────────── -->
+            <div class="content-block">
+              <div class="block-heading">
+                <span class="badge badge-neutral">Pourquoi l'alternance</span>
+                <h2 style="font-size: var(--text-xl); margin: 0;">
+                  La voie la plus directe vers l'emploi
+                </h2>
+              </div>
+
+              <div class="avantages-grid">
+
+                <div class="avantage-item">
+                  <div>
+                    <h4>Formation + entreprise</h4>
+                    <p class="text-sm text-muted">
+                      3 semaines en entreprise, 1 semaine en cours.
+                      Vous apprenez en faisant, pas uniquement en classe.
+                      La théorie prend tout son sens sur le terrain.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="avantage-item">
+                  <div>
+                    <h4>Rémunéré dès le premier mois</h4>
+                    <p class="text-sm text-muted">
+                      Contrairement à un stage, l'alternance est un contrat
+                      de travail. Vous percevez un salaire calculé en fonction
+                      de votre âge, chaque mois.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="avantage-item">
+                  <div>
+                    <h4>Une vraie expérience professionnelle</h4>
+                    <p class="text-sm text-muted">
+                      En 12 mois, vous accumulez l'équivalent de 9 mois
+                      en entreprise. À la sortie, votre CV parle de lui-même
+                      face à un diplômé sans expérience.
+                    </p>
+                  </div>
+                </div>
+
+                <div class="avantage-item">
+                  <div>
+                    <h4>Insertion rapide dans l'emploi</h4>
+                    <p class="text-sm text-muted">
+                      95% de nos diplômés sont embauchés dans les
+                      6 mois suivant la formation — souvent par l'entreprise
+                      qui les a accueillis en alternance.
+                    </p>
+                  </div>
+                </div>
+
+              </div>
+            </div><!-- /avantages -->
+
+
+            <!-- 4. PARCOURS PROPOSÉS ────────────────────── -->
+            <div class="content-block">
+              <div class="block-heading">
+                <span class="badge badge-neutral">Formations</span>
+                <h2 style="font-size: var(--text-xl); margin: 0;">
+                  Deux parcours certifiants
+                </h2>
+              </div>
+
+              <div class="stack stack-6" style="gap: var(--sp-5);">
+
+                <!-- TP Électricité -->
+                <article class="parcours-card"
+                         aria-labelledby="parcours-elec-title">
+                  <div class="parcours-card-header">
+                    <div>
+                      <div style="display:flex; gap:var(--sp-2); margin-bottom:var(--sp-3);">
+                        <span class="badge badge-primary">Titre professionnel</span>
+                        <span class="badge badge-neutral">Niveau 3</span>
+                      </div>
+                      <h3 id="parcours-elec-title" style="font-size:var(--text-lg);">
+                        Électricien(ne)
+                      </h3>
+                    </div>
+                  </div>
+
+                  <p class="text-sm text-muted">
+                    Installation, raccordement et mise en service des équipements
+                    électriques dans les bâtiments tertiaires et industriels.
+                    Habilitations BR/B1 incluses dans la formation.
+                  </p>
+
+                  <div class="parcours-meta" aria-label="Informations pratiques">
+                    <span class="parcours-meta-item">
+12 mois
+                    </span>
+                    <span class="parcours-meta-item">
+Rentrée septembre
+                    </span>
+                    <span class="parcours-meta-item">
+Île-de-France
+                    </span>
+                    <span class="parcours-meta-item">
+Alternance 3/1
+                    </span>
+                  </div>
+
+                  <a href="#form-candidat"
+                     class="btn btn-primary btn-sm"
+                     aria-label="Candidater pour la formation Électricien">
+                    Je candidate à cette formation
+                  </a>
+                </article>
+
+                <!-- TP CVC / Froid -->
+                <article class="parcours-card"
+                         aria-labelledby="parcours-cvc-title">
+                  <div class="parcours-card-header">
+                    <div>
+                      <div style="display:flex; gap:var(--sp-2); margin-bottom:var(--sp-3);">
+                        <span class="badge badge-primary">Titre professionnel</span>
+                        <span class="badge badge-neutral">Niveau 3</span>
+                      </div>
+                      <h3 id="parcours-cvc-title" style="font-size:var(--text-lg);">
+                        Technicien(ne) CVC / Froid
+                      </h3>
+                    </div>
+                  </div>
+
+                  <p class="text-sm text-muted">
+                    Maintenance et exploitation des installations de climatisation,
+                    ventilation et réfrigération. Attestation fluides frigorigènes
+                    catégorie I incluse dans la formation.
+                  </p>
+
+                  <div class="parcours-meta" aria-label="Informations pratiques">
+                    <span class="parcours-meta-item">
+12 mois
+                    </span>
+                    <span class="parcours-meta-item">
+Rentrée septembre
+                    </span>
+                    <span class="parcours-meta-item">
+Île-de-France
+                    </span>
+                    <span class="parcours-meta-item">
+Alternance 3/1
+                    </span>
+                  </div>
+
+                  <a href="#form-candidat"
+                     class="btn btn-primary btn-sm"
+                     aria-label="Candidater pour la formation CVC Froid">
+                    Je candidate à cette formation
+                  </a>
+                </article>
+
+              </div>
+            </div><!-- /parcours -->
+
+
+            <!-- 5. PRÉREQUIS ─────────────────────────────── -->
+            <div class="content-block">
+              <div class="block-heading">
+                <span class="badge badge-neutral">Prérequis</span>
+                <h2 style="font-size: var(--text-xl); margin: 0;">
+                  Pas besoin d'un parcours parfait
+                </h2>
+              </div>
+
+              <p class="text-muted" style="margin-bottom: var(--sp-5);">
+                Nos formations sont accessibles sans diplôme technique préalable.
+                Ce qui compte avant tout :
+              </p>
+
+              <div class="prereq-list" role="list">
+
+                <div class="prereq-item" role="listitem">
+                  <div>
+                    <strong style="display:block; font-size:var(--text-sm);
+                                   color:var(--color-primary-dk); margin-bottom:var(--sp-1);">
+                      Motivation à apprendre un métier
+                    </strong>
+                    <span class="text-sm text-muted">
+                      Vous voulez maîtriser un savoir-faire concret et utile.
+                      C'est le critère le plus important.
+                    </span>
+                  </div>
+                </div>
+
+                <div class="prereq-item" role="listitem">
+                  <div>
+                    <strong style="display:block; font-size:var(--text-sm);
+                                   color:var(--color-primary-dk); margin-bottom:var(--sp-1);">
+                      Goût pour le travail technique et manuel
+                    </strong>
+                    <span class="text-sm text-muted">
+                      Vous aimez comprendre comment les choses fonctionnent
+                      et intervenir concrètement.
+                    </span>
+                  </div>
+                </div>
+
+                <div class="prereq-item" role="listitem">
+                  <div>
+                    <strong style="display:block; font-size:var(--text-sm);
+                                   color:var(--color-primary-dk); margin-bottom:var(--sp-1);">
+                      Respect des règles de sécurité
+                    </strong>
+                    <span class="text-sm text-muted">
+                      Les métiers techniques impliquent des règles strictes.
+                      Les respecter protège vous et les autres.
+                    </span>
+                  </div>
+                </div>
+
+                <div class="prereq-item" role="listitem">
+                  <div>
+                    <strong style="display:block; font-size:var(--text-sm);
+                                   color:var(--color-primary-dk); margin-bottom:var(--sp-1);">
+                      Capacité à apprendre en situation réelle
+                    </strong>
+                    <span class="text-sm text-muted">
+                      L'alternance demande d'être à l'aise avec l'imprévu
+                      et d'apprendre autant sur le terrain qu'en cours.
+                    </span>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="alert alert-info" style="margin-top: var(--sp-5);">
+                <span>
+                  Aucun diplôme technique n'est requis à l'entrée.
+                  Niveau 3ème minimum. Nous évaluons votre motivation, pas
+                  uniquement votre parcours scolaire.
+                </span>
+              </div>
+            </div><!-- /prérequis -->
+
+
+            <!-- 6. DÉBOUCHÉS ─────────────────────────────── -->
+            <div class="content-block">
+              <div class="block-heading">
+                <span class="badge badge-neutral">Débouchés</span>
+                <h2 style="font-size: var(--text-xl); margin: 0;">
+                  Où travailleront vos compétences
+                </h2>
+              </div>
+
+              <p class="text-muted" style="margin-bottom: var(--sp-5);">
+                Les techniciens formés au CFA Lumière interviennent dans
+                des secteurs variés, avec des perspectives d'évolution concrètes.
+              </p>
+
+              <div class="debouches-grid">
+
+                <div class="card card-ghost card-compact">
+                  <h4 style="margin-bottom:var(--sp-2);">BTP / Bâtiment</h4>
+                  <p class="text-sm text-muted">
+                    Chantiers de construction neuve, réhabilitation,
+                    logements et bureaux. Activité constante partout en France.
+                  </p>
+                </div>
+
+                <div class="card card-ghost card-compact">
+                  <h4 style="margin-bottom:var(--sp-2);">Industrie</h4>
+                  <p class="text-sm text-muted">
+                    Usines, chaînes de production, ateliers.
+                    La maintenance est le nerf de la guerre industrielle.
+                  </p>
+                </div>
+
+                <div class="card card-ghost card-compact">
+                  <h4 style="margin-bottom:var(--sp-2);">Services &amp; Maintenance</h4>
+                  <p class="text-sm text-muted">
+                    Facility management, sociétés de maintenance,
+                    immeubles tertiaires, hôtellerie, santé.
+                  </p>
+                </div>
+
+                <div class="card card-ghost card-compact">
+                  <h4 style="margin-bottom:var(--sp-2);">Infrastructures critiques</h4>
+                  <p class="text-sm text-muted">
+                    Data centers, hôpitaux, aéroports.
+                    Les meilleures conditions et les meilleures rémunérations
+                    du secteur à terme.
+                  </p>
+                </div>
+
+              </div>
+            </div><!-- /débouchés -->
+
+
+          </div><!-- /colonne gauche -->
+
+
+          <!-- ── COLONNE DROITE : formulaire ──────────── -->
+          <div class="form-sticky" id="form-candidat">
+            <div class="card" style="padding: var(--sp-6);">
+
+              <div style="margin-bottom: var(--sp-5);">
+                <span class="badge badge-accent" style="margin-bottom:var(--sp-3);">
+                  Candidature rapide
+                </span>
+                <h2 style="font-size: var(--text-xl); margin-bottom: var(--sp-2);">
+                  Je candidate
+                </h2>
+                <p class="text-sm text-muted">
+                  2 minutes. Un conseiller vous rappelle
+                  sous 24h pour faire le point ensemble.
+                </p>
+              </div>
+
+              <!-- ══ FORMULAIRE CANDIDATURE ══ -->
+              <form
+                class="candidats-form"
+                novalidate
+                aria-label="Formulaire de candidature"
+              >
+                <div class="stack stack-4" style="gap: var(--sp-4);">
+
+                  <!-- Prénom + Nom -->
+                  <div class="form-grid-2">
+                    <div class="form-field">
+                      <label class="form-label" for="cand-firstname">
+                        Prénom <span class="req" aria-hidden="true">*</span>
+                      </label>
+                      <input
+                        class="form-control"
+                        id="cand-firstname"
+                        name="firstname"
+                        type="text"
+                        placeholder="Votre prénom"
+                        autocomplete="given-name"
+                        required
+                      />
+                    </div>
+                    <div class="form-field">
+                      <label class="form-label" for="cand-lastname">
+                        Nom <span class="req" aria-hidden="true">*</span>
+                      </label>
+                      <input
+                        class="form-control"
+                        id="cand-lastname"
+                        name="lastname"
+                        type="text"
+                        placeholder="Votre nom"
+                        autocomplete="family-name"
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <!-- Téléphone -->
+                  <div class="form-field">
+                    <label class="form-label" for="cand-phone">
+                      Téléphone <span class="req" aria-hidden="true">*</span>
+                    </label>
+                    <input
+                      class="form-control"
+                      id="cand-phone"
+                      name="phone"
+                      type="tel"
+                      placeholder="06 00 00 00 00"
+                      autocomplete="tel"
+                      required
+                    />
+                    <span class="form-hint">
+                      On vous rappelle — pas de mail automatique.
+                    </span>
+                  </div>
+
+                  <!-- Email -->
+                  <div class="form-field">
+                    <label class="form-label" for="cand-email">
+                      Email <span class="req" aria-hidden="true">*</span>
+                    </label>
+                    <input
+                      class="form-control"
+                      id="cand-email"
+                      name="email"
+                      type="email"
+                      placeholder="votre@email.fr"
+                      autocomplete="email"
+                      required
+                    />
+                  </div>
+
+                  <!-- Âge + Ville -->
+                  <div class="form-grid-2">
+                    <div class="form-field">
+                      <label class="form-label" for="cand-age">Âge</label>
+                      <select class="form-control" id="cand-age" name="age">
+                        <option value="" disabled selected>Votre âge</option>
+                        <option value="16-17">16 – 17 ans</option>
+                        <option value="18-20">18 – 20 ans</option>
+                        <option value="21-25">21 – 25 ans</option>
+                        <option value="26-29">26 – 29 ans</option>
+                        <option value="30+">30 ans et plus</option>
+                      </select>
+                    </div>
+                    <div class="form-field">
+                      <label class="form-label" for="cand-city">Ville</label>
+                      <input
+                        class="form-control"
+                        id="cand-city"
+                        name="city"
+                        type="text"
+                        placeholder="Paris, Lyon..."
+                        autocomplete="address-level2"
+                      />
+                    </div>
+                  </div>
+
+                  <!-- Formation souhaitée -->
+                  <div class="form-field">
+                    <label class="form-label" for="cand-formation">
+                      Formation souhaitée <span class="req" aria-hidden="true">*</span>
+                    </label>
+                    <select class="form-control" id="cand-formation"
+                            name="formation" required>
+                      <option value="" disabled selected>Choisir</option>
+                      <option value="electricite">TP Électricien(ne)</option>
+                      <option value="cvc-froid">TP Technicien(ne) CVC / Froid</option>
+                      <option value="indecis">Je ne sais pas encore</option>
+                    </select>
+                  </div>
+
+                  <!-- Niveau actuel -->
+                  <div class="form-field">
+                    <label class="form-label" for="cand-level">Niveau actuel</label>
+                    <select class="form-control" id="cand-level" name="level">
+                      <option value="" disabled selected>Votre niveau</option>
+                      <option value="3eme">3ème / Collège</option>
+                      <option value="cap-bep">CAP / BEP</option>
+                      <option value="bac">Bac ou équivalent</option>
+                      <option value="bac2">Bac +2 ou plus</option>
+                      <option value="autre">Autre</option>
+                    </select>
+                  </div>
+
+                  <!-- Expérience + Disponibilité -->
+                  <div class="form-grid-2">
+                    <div class="form-field">
+                      <label class="form-label" for="cand-xp">Expérience</label>
+                      <select class="form-control" id="cand-xp" name="experience">
+                        <option value="" disabled selected>Dans le secteur</option>
+                        <option value="aucune">Aucune</option>
+                        <option value="1-2">1 à 2 ans</option>
+                        <option value="2-5">2 à 5 ans</option>
+                        <option value="5+">Plus de 5 ans</option>
+                      </select>
+                    </div>
+                    <div class="form-field">
+                      <label class="form-label" for="cand-dispo">Disponible</label>
+                      <select class="form-control" id="cand-dispo" name="dispo">
+                        <option value="" disabled selected>Quand ?</option>
+                        <option value="maintenant">Dès maintenant</option>
+                        <option value="sept-2025">Septembre 2025</option>
+                        <option value="jan-2026">Janvier 2026</option>
+                        <option value="plus-tard">Plus tard</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <!-- Message optionnel -->
+                  <div class="form-field">
+                    <label class="form-label" for="cand-message">
+                      Un mot sur votre situation
+                      <span class="text-xs text-muted" style="font-weight:400;">
+                        (facultatif)
+                      </span>
+                    </label>
+                    <textarea
+                      class="form-control"
+                      id="cand-message"
+                      name="message"
+                      rows="3"
+                      placeholder="Reconversion, recherche d'entreprise, questions sur le programme..."
+                    ></textarea>
+                  </div>
+
+                  <!-- CTA + mention RGPD -->
+                  <div>
+                    <button type="submit" class="btn btn-primary btn-full btn-lg">
+                      Je candidate
+                    </button>
+                    <p style="font-size:var(--text-xs); color:var(--color-text-muted);
+                              text-align:center; margin-top:var(--sp-3); line-height:1.5;">
+                      Données traitées conformément au RGPD.
+                      Aucun démarchage sans votre accord.
+                    </p>
+                  </div>
+
+                </div>
+              </form>
+              <!-- /formulaire -->
+
+            </div>
+          </div><!-- /colonne droite -->
+
+        </div><!-- /cand-grid -->
+      </div><!-- /container -->
+    </section>
+
+
+    <!-- ══════════════════════════════════════════════════
+         PREUVE : chiffres rapides
+         ══════════════════════════════════════════════════ -->
+    <section class="section-sm section-quiet" aria-label="Chiffres clés">
+      <div class="container">
+        <div class="stats-strip">
+          <div class="stat">
+            <span class="stat-value">+1 500</span>
+            <span class="stat-label">Alternants formés</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value">95%</span>
+            <span class="stat-label">Taux d'insertion</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value">12 mois</span>
+            <span class="stat-label">Durée de formation</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value">0€</span>
+            <span class="stat-label">Frais à votre charge</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ══════════════════════════════════════════════════
+         8. CTA FINAL — RÉUNION D'INFORMATION
+         Conversion douce pour ceux qui hésitent encore
+         ══════════════════════════════════════════════════ -->
+    <section class="section section-dark" aria-labelledby="reunion-heading">
+      <div class="container">
+        <div class="reunion-card">
+
+          <span class="eyebrow" style="background:var(--color-accent-bg);
+                                       color:var(--color-primary-dk);">
+            Réunion d'information
+          </span>
+
+          <h2 id="reunion-heading" style="margin-top: var(--sp-4);">
+            Vous hésitez encore ?
+          </h2>
+
+          <p style="font-size:var(--text-base); color:var(--color-text-muted);
+                    line-height:1.7; margin-top:var(--sp-3);">
+            Participez à notre prochaine réunion d'information.
+            Rencontrez les formateurs, posez toutes vos questions,
+            visitez le centre — sans engagement, sans pression.
+          </p>
+
+          <div style="display:flex; align-items:center; justify-content:center;
+                      gap:var(--sp-3); flex-wrap:wrap;
+                      margin: var(--sp-5) 0; padding: var(--sp-4);
+                      background:var(--color-bg-alt); border-radius:var(--radius-m);">
+            <span class="text-sm" style="color:var(--color-primary-dk);">
+              <strong>Tous les premiers mardis du mois</strong>
+              &nbsp;·&nbsp; 2h &nbsp;·&nbsp; Paris &nbsp;·&nbsp; Gratuit
+            </span>
+          </div>
+
+          <div style="display:flex; flex-wrap:wrap; gap:var(--sp-3);
+                      justify-content:center;">
+            <a href="contact.html" class="btn btn-secondary">
+              Je m'inscris à la prochaine réunion
+            </a>
+            <a href="#form-candidat" class="btn btn-outline">
+              Candidater directement
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <div id="footer"></div>
+  <script src="js/main.js"></script>
+</body>
+</html>
