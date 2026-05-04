@@ -121,7 +121,7 @@
   /* ── Mise en page ─────────────────────────────────────── */
   --container-max: 1120px;
   --container-pad: 1.25rem;
-  --navbar-height: 4.5rem;
+  --navbar-height: 6rem;
 
   /* ── Z-index ──────────────────────────────────────────── */
   --z-raised:  10;
@@ -623,7 +623,7 @@ select.form-control {
 
 .nav-brand img {
   display: block;
-  max-height: 3.75rem;
+  max-height: 5.5rem;
   width: auto;
   background: transparent;
   mix-blend-mode: multiply;
@@ -759,7 +759,7 @@ select.form-control {
 
 .footer-brand img {
   display: block;
-  max-height: 4.5rem;
+  max-height: 7rem;
   width: auto;
   filter: invert(1) hue-rotate(180deg);
   mix-blend-mode: screen;
